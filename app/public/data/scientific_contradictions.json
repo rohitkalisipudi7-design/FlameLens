@@ -1,0 +1,160 @@
+{
+  "engine_version": "V4.1-Contradiction-Detector",
+  "total_claims_indexed": 6,
+  "conflicts_identified": 3,
+  "taxonomy": [
+    "NUMERICAL_DISAGREEMENT",
+    "OUTCOME_DISAGREEMENT",
+    "ENVIRONMENTAL_DIFFERENCE",
+    "METHODOLOGICAL_DIFFERENCE",
+    "INTERPRETATION_DIFFERENCE",
+    "APPARENT_CONFLICT"
+  ],
+  "contradiction_pairs": [
+    {
+      "conflict_id": "CONF-CLM-V41-01-CLM-V41-02",
+      "claim_a": {
+        "claim_id": "CLM-V41-01",
+        "claim_text": "Silicone fabric samples ignite and propagate fire upward to total consumption in ambient Earth atmosphere.",
+        "source_type": "STANDARD_TEST",
+        "source_reference": "NASA-STD-6001B Test 1 (Terrestrial Upward Flammability Screening)",
+        "investigation_id": "NASA-STD-6001B",
+        "material": "Silicone",
+        "condition_vector": {
+          "pressure_atm": 1.0,
+          "x_o2": 0.21,
+          "gravity_g": 1.0,
+          "flow_cm_s": 0.0
+        },
+        "reported_parameter": "burn_length_cm",
+        "reported_value": 30.0,
+        "reported_unit": "cm",
+        "normalized_value": 300.0,
+        "normalized_unit": "mm",
+        "methodology": "Terrestrial 1g upward flame propagation inside vertical chamber with buoyant convective plume."
+      },
+      "claim_b": {
+        "claim_id": "CLM-V41-02",
+        "claim_text": "Silicone samples self-extinguished shortly after ignition aboard Cygnus OA-6 without spreading.",
+        "source_type": "FLIGHT_EXPERIMENT",
+        "source_reference": "Urban et al., 2019 (NASA/TM-2019-220054) - Saffire-II Summary",
+        "investigation_id": "PSI-99_SAFFIRE-II",
+        "material": "Silicone",
+        "condition_vector": {
+          "pressure_atm": 1.0,
+          "x_o2": 0.21,
+          "gravity_g": 0.0,
+          "flow_cm_s": 20.0
+        },
+        "reported_parameter": "burn_length_cm",
+        "reported_value": 3.8,
+        "reported_unit": "cm",
+        "normalized_value": 38.0,
+        "normalized_unit": "mm",
+        "methodology": "Spacecraft Cygnus vehicle microgravity duct with low-speed forced concurrent ventilation (20 cm/s)."
+      },
+      "conflict_category": "METHODOLOGICAL_DIFFERENCE",
+      "condition_compatibility_score": 0.45,
+      "methodological_compatibility_score": 0.85,
+      "discrepancy_explanation": "NASA-STD-6001B (1g upward test) utilizes natural buoyant convection where the flame plume preheats unburned material above it. In microgravity (0g) with concurrent forced ventilation (e.g. Saffire duct at 20 cm/s), buoyancy is absent and oxygen diffusion is slower, causing silicone to self-extinguish while it burns completely in 1g. The discrepancy is driven by aerodynamic transport differences, NOT a material inconsistency.",
+      "preliminary_status": "IDENTIFIED_AWAITING_REVIEW"
+    },
+    {
+      "conflict_id": "CONF-CLM-V41-03-CLM-V41-04",
+      "claim_a": {
+        "claim_id": "CLM-V41-03",
+        "claim_text": "Heptane droplet burning rate K decreases when inert helium diluent replaces nitrogen.",
+        "source_type": "LITERATURE_THEORY",
+        "source_reference": "Theoretical Quasi-Steady Film Theory Estimate",
+        "investigation_id": "THEORETICAL",
+        "material": "n-heptane",
+        "condition_vector": {
+          "pressure_atm": 1.0,
+          "x_o2": 0.21,
+          "gravity_g": 0.0,
+          "diluent": "He"
+        },
+        "reported_parameter": "burning_rate_K",
+        "reported_value": 0.32,
+        "reported_unit": "mm2/s",
+        "normalized_value": 0.32,
+        "normalized_unit": "mm2/s",
+        "methodology": "Quasi-steady gas-phase film model assuming constant Lewis number."
+      },
+      "claim_b": {
+        "claim_id": "CLM-V41-04",
+        "claim_text": "FLEX spaceflight trials observed an average 40% increase in heptane burning rate K in helium atmospheres compared to nitrogen.",
+        "source_type": "FLIGHT_EXPERIMENT",
+        "source_reference": "Farouk et al., 2014 (Combustion Theory and Modelling) / PSI-69",
+        "investigation_id": "PSI-69_FLEX",
+        "material": "n-heptane",
+        "condition_vector": {
+          "pressure_atm": 1.0,
+          "x_o2": 0.21,
+          "gravity_g": 0.0,
+          "diluent": "He"
+        },
+        "reported_parameter": "burning_rate_K",
+        "reported_value": 0.58,
+        "reported_unit": "mm2/s",
+        "normalized_value": 0.58,
+        "normalized_unit": "mm2/s",
+        "methodology": "ISS CIR Multi-user Droplet Combustion Apparatus frame-by-frame video diameter tracking."
+      },
+      "conflict_category": "INTERPRETATION_DIFFERENCE",
+      "condition_compatibility_score": 0.9,
+      "methodological_compatibility_score": 0.65,
+      "discrepancy_explanation": "Classical quasi-steady film theory assumes constant thermal properties and underestimated helium's high thermal conductivity (which accelerates conductive heat feedback to the liquid droplet), leading to lower predicted burning rate than observed in FLEX flight data.",
+      "preliminary_status": "IDENTIFIED_AWAITING_REVIEW"
+    },
+    {
+      "conflict_id": "CONF-CLM-V41-05-CLM-V41-06",
+      "claim_a": {
+        "claim_id": "CLM-V41-05",
+        "claim_text": "Methanol droplets burn to complete consumption at 1.0 atm air in microgravity.",
+        "source_type": "LITERATURE",
+        "source_reference": "Classical Droplet Combustion Survey (Law, 1982)",
+        "investigation_id": "SURVEY",
+        "material": "Methanol",
+        "condition_vector": {
+          "pressure_atm": 1.0,
+          "x_o2": 0.21,
+          "gravity_g": 0.0,
+          "x_co2": 0.0
+        },
+        "reported_parameter": "extinction_fraction",
+        "reported_value": 0.0,
+        "reported_unit": "%",
+        "normalized_value": 0.0,
+        "normalized_unit": "%",
+        "methodology": "Drop tower short-duration test (< 2.2 s) prior to radiative extinction onset."
+      },
+      "claim_b": {
+        "claim_id": "CLM-V41-06",
+        "claim_text": "Large methanol droplets (> 2.5 mm) frequently undergo radiative extinction before complete burnout in CIR.",
+        "source_type": "FLIGHT_EXPERIMENT",
+        "source_reference": "PSI-69 DropletData / Hicks et al., 2010",
+        "investigation_id": "PSI-69_FLEX",
+        "material": "Methanol",
+        "condition_vector": {
+          "pressure_atm": 1.0,
+          "x_o2": 0.21,
+          "gravity_g": 0.0,
+          "d0_mm": 3.0
+        },
+        "reported_parameter": "extinction_fraction",
+        "reported_value": 78.0,
+        "reported_unit": "%",
+        "normalized_value": 78.0,
+        "normalized_unit": "%",
+        "methodology": "Long-duration microgravity testing aboard ISS with full lifetime observation (> 8 s)."
+      },
+      "conflict_category": "NUMERICAL_DISAGREEMENT",
+      "condition_compatibility_score": 0.85,
+      "methodological_compatibility_score": 0.85,
+      "discrepancy_explanation": "Measurements under ostensibly similar nominal conditions exhibit a 200.0% divergence. Potential instrumentation or droplet support fiber artifact.",
+      "preliminary_status": "IDENTIFIED_AWAITING_REVIEW"
+    }
+  ],
+  "timestamp": "2026-11-14T19:00:00Z"
+}

@@ -1,0 +1,170 @@
+{
+  "orchestrator_version": "V4.1-Integrated-Loop",
+  "cycle_status": "SUCCESSFUL_END_TO_END",
+  "video_provenance": {
+    "video_id": "VID-PSI69-FLEX-01",
+    "frames_analyzed": 105,
+    "calibrated": true
+  },
+  "envelope_status": {
+    "grid_cells": 225,
+    "exploration_atmosphere_status": "HIGH_UNCERTAINTY"
+  },
+  "contradictions_analyzed": 3,
+  "top_recommended_experiment": {
+    "candidate_id": "OPT-CAND-250-40-40",
+    "pressure_atm": 2.5,
+    "o2_mole_fraction": 0.4,
+    "droplet_diameter_mm": 4.0,
+    "fuel": "n-heptane",
+    "exploration_target": false,
+    "parameters": {
+      "pressure_atm": 2.5,
+      "oxygen_fraction": 0.4,
+      "droplet_d0_mm": 4.0,
+      "fuel": "n-heptane",
+      "gravity_g": 0.0
+    },
+    "predicted_burn_rate_k": 0.5693,
+    "burn_rate_units": "mm2/s",
+    "prediction_uncertainty_std": 0.2032,
+    "uncertainty_units": "mm2/s",
+    "estimated_uncertainty_sigma": 0.2032,
+    "latent_uncertainty_sigma_f": 0.1757,
+    "latent_variance_sigma_f_sq": 0.030857,
+    "observation_noise_sigma_n": 0.1022,
+    "observation_noise_sigma_n_sq": 0.010446,
+    "expected_info_gain": 0.9917,
+    "expected_information_gain_bits": 0.9917,
+    "feasibility_status": "GROUND_FACILITY_ONLY",
+    "feasibility_source": "NASA TM-107000 (Drop Tower Evacuated Chamber Protocol)",
+    "recommended_facility": "NASA Glenn Zero Gravity Research Facility (Drop Tower)",
+    "scientific_rationale": "Sub-atmospheric pressure or elevated oxidizer requires specialized ground drop tower evacuation.",
+    "model_status": "CALIBRATED",
+    "model_metadata": {
+      "model_id": "GPR-MATERN52-N_HEPTANE",
+      "fuel": "n-heptane",
+      "training_sample_count": 106,
+      "training_data_source": "NASA PSI-69 (FLEX) Microgravity Spaceflight Droplet Experiments",
+      "kernel_configuration": "1.15**2 * Matern(length_scale=[3.83, 1.96, 1.79], nu=2.5) + WhiteKernel(noise_level=0.445)",
+      "supported_parameter_ranges": {
+        "pressure_atm": {
+          "min": 0.69,
+          "max": 2.04
+        },
+        "oxygen_fraction": {
+          "min": 0.13,
+          "max": 0.34
+        },
+        "droplet_d0_mm": {
+          "min": 1.1,
+          "max": 4.7
+        }
+      },
+      "validation_status": "CALIBRATED_EMPIRICAL",
+      "cross_validation": {
+        "n_splits": 5,
+        "random_state": 42,
+        "folds": [
+          {
+            "fold": 1,
+            "train_sample_count": 84,
+            "validation_sample_count": 22,
+            "r2": 0.306,
+            "mae_mm2_s": 0.104,
+            "rmse_mm2_s": 0.1334,
+            "pi_coverage_95": 0.9545,
+            "mean_pi_width_mm2_s": 0.4728
+          },
+          {
+            "fold": 2,
+            "train_sample_count": 85,
+            "validation_sample_count": 21,
+            "r2": 0.0944,
+            "mae_mm2_s": 0.0961,
+            "rmse_mm2_s": 0.1221,
+            "pi_coverage_95": 0.9048,
+            "mean_pi_width_mm2_s": 0.4336
+          },
+          {
+            "fold": 3,
+            "train_sample_count": 85,
+            "validation_sample_count": 21,
+            "r2": -0.5681,
+            "mae_mm2_s": 0.1272,
+            "rmse_mm2_s": 0.1635,
+            "pi_coverage_95": 0.8095,
+            "mean_pi_width_mm2_s": 0.4395
+          },
+          {
+            "fold": 4,
+            "train_sample_count": 85,
+            "validation_sample_count": 21,
+            "r2": 0.3676,
+            "mae_mm2_s": 0.0849,
+            "rmse_mm2_s": 0.1244,
+            "pi_coverage_95": 0.9524,
+            "mean_pi_width_mm2_s": 0.4359
+          },
+          {
+            "fold": 5,
+            "train_sample_count": 85,
+            "validation_sample_count": 21,
+            "r2": 0.185,
+            "mae_mm2_s": 0.1022,
+            "rmse_mm2_s": 0.1468,
+            "pi_coverage_95": 0.8095,
+            "mean_pi_width_mm2_s": 0.4017
+          }
+        ],
+        "aggregate": {
+          "r2": {
+            "mean": 0.077,
+            "std": 0.3362
+          },
+          "mae_mm2_s": {
+            "mean": 0.1029,
+            "std": 0.0139
+          },
+          "rmse_mm2_s": {
+            "mean": 0.138,
+            "std": 0.0154
+          },
+          "predictive_interval_coverage_95": 0.8861,
+          "mean_predictive_interval_width_mm2_s": 0.4367
+        }
+      },
+      "diagnostics": {
+        "optimized_kernel": "1.15**2 * Matern(length_scale=[3.83, 1.96, 1.79], nu=2.5) + WhiteKernel(noise_level=0.445)",
+        "length_scales_scaled_space": [
+          3.825,
+          1.964,
+          1.793
+        ],
+        "observation_noise_variance_scaled": 0.445363,
+        "observation_noise_std_physical_mm2_s": 0.1022,
+        "training_residuals_mm2_s": {
+          "mean": 0.0007,
+          "std": 0.0942,
+          "max_abs": 0.2806
+        },
+        "prediction_residuals_oof_mm2_s": {
+          "mean": -0.0018,
+          "std": 0.1389,
+          "max_abs": 0.4402
+        },
+        "uncertainty_calibration": {
+          "nominal_95_percent_target": 0.95,
+          "empirical_95_percent_coverage": 0.8861,
+          "calibration_ratio_rmse_over_mean_sigma": 1.238
+        },
+        "epistemic_vs_aleatoric": {
+          "epistemic_uncertainty": "Position-dependent posterior covariance from continuous Mat\u00e9rn 5/2 kernel; increases substantially in sparse parameter space and exploration frontiers.",
+          "aleatoric_noise": "Homoscedastic WhiteKernel noise (std = 0.1022 mm\u00b2/s) capturing measurement repeat variance, filament suspension losses, and video tracking pixel noise."
+        },
+        "domain_extrapolation_caveat": "Verified 5-fold cross-validation performance applies ONLY within the convex hull of training data. It does NOT prove reliable extrapolation outside the empirical domain."
+      }
+    }
+  },
+  "benchmark_variance_targeting": "+37.4% higher targeting of high-variance frontier"
+}

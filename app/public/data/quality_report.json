@@ -1,0 +1,90 @@
+{
+  "engine_version": "V4.0-Scientific-Quality-Gate",
+  "total_experiments_evaluated": 1872,
+  "overall_platform_quality_score": 89.0,
+  "status_distribution": {
+    "VALIDATED": 882,
+    "WARNING": 48,
+    "MISSING_DATA": 771,
+    "INVALID_RECORD": 9,
+    "UNIT_MISMATCH": 136,
+    "OUTLIER": 20,
+    "SOURCE_CONFLICT": 6
+  },
+  "flag_distribution": {
+    "WARNING": 474,
+    "MISSING_DATA": 1574,
+    "INVALID_RECORD": 9,
+    "UNIT_MISMATCH": 138,
+    "OUTLIER": 20,
+    "SOURCE_CONFLICT": 6
+  },
+  "campaign_summary": {
+    "PSI-69": {
+      "mean_score": 99.5,
+      "total_runs": 274,
+      "validated_runs": 239
+    },
+    "PSI-39": {
+      "mean_score": 95.6,
+      "total_runs": 87,
+      "validated_runs": 67
+    },
+    "PSI-10": {
+      "mean_score": 94.5,
+      "total_runs": 327,
+      "validated_runs": 256
+    },
+    "PSI-159": {
+      "mean_score": 99.7,
+      "total_runs": 333,
+      "validated_runs": 320
+    },
+    "PSI-107": {
+      "mean_score": 76.5,
+      "total_runs": 469,
+      "validated_runs": 0
+    },
+    "PSI-98": {
+      "mean_score": 72.0,
+      "total_runs": 2,
+      "validated_runs": 0
+    },
+    "PSI-99": {
+      "mean_score": 74.7,
+      "total_runs": 9,
+      "validated_runs": 0
+    },
+    "PSI-100": {
+      "mean_score": 68.0,
+      "total_runs": 2,
+      "validated_runs": 0
+    },
+    "PSI-26": {
+      "mean_score": 78.1,
+      "total_runs": 121,
+      "validated_runs": 0
+    },
+    "PSI-25": {
+      "mean_score": 86.2,
+      "total_runs": 129,
+      "validated_runs": 0
+    },
+    "PSI-102": {
+      "mean_score": 78.5,
+      "total_runs": 8,
+      "validated_runs": 0
+    },
+    "PSI-101": {
+      "mean_score": 79.9,
+      "total_runs": 109,
+      "validated_runs": 0
+    },
+    "PSI-47": {
+      "mean_score": 80.0,
+      "total_runs": 2,
+      "validated_runs": 0
+    }
+  },
+  "validation_timestamp": "2026-11-14T18:30:00Z"
+}

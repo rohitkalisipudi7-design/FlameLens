@@ -1,0 +1,54 @@
+{
+  "total_records": 1872,
+  "overall_quality_score": 59.3,
+  "status_distribution": {
+    "MISSING_DATA": 1771,
+    "INVALID_RECORD": 8,
+    "OUTLIER": 20,
+    "UNIT_MISMATCH": 67,
+    "SOURCE_CONFLICT": 6
+  },
+  "flag_distribution": {
+    "MISSING_DATA": 1872,
+    "UNVERIFIED": 1872,
+    "WARNING": 543,
+    "INVALID_RECORD": 8,
+    "OUTLIER": 20,
+    "UNIT_MISMATCH": 69,
+    "SOURCE_CONFLICT": 6
+  },
+  "campaign_scores": {
+    "PSI-69": 60.4,
+    "PSI-39": 56.4,
+    "PSI-10": 67.4,
+    "PSI-159": 72.7,
+    "PSI-107": 44.7,
+    "PSI-98": 41.0,
+    "PSI-99": 42.4,
+    "PSI-100": 37.0,
+    "PSI-26": 47.4,
+    "PSI-25": 57.7,
+    "PSI-102": 71.0,
+    "PSI-101": 72.9,
+    "PSI-47": 73.0
+  },
+  "validation_timestamp": "2026-11-14T18:28:00Z",
+  "physical_bounds_enforced": [
+    "pressure_atm",
+    "x_o2",
+    "x_n2",
+    "x_co2",
+    "x_he",
+    "x_fuel",
+    "d0_mm",
+    "d_ext_mm",
+    "burning_rate_mm2_s",
+    "burn_time_s",
+    "duration_s",
+    "t_ad_K",
+    "peak_burner_T_K",
+    "flow_cm_s",
+    "ug_spread_rate_mm_s",
+    "thickness_mm"
+  ]
+}

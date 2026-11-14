@@ -1,0 +1,167 @@
+{
+  "engine_version": "V4.0-Research-Gap-Recommendation",
+  "total_experiments_analyzed": 1872,
+  "valid_atmospheric_experiments": 1009,
+  "grid_density": {
+    "P[0.00-0.65]_O2[10-16%]": 1,
+    "P[0.00-0.65]_O2[16-22%]": 22,
+    "P[0.00-0.65]_O2[22-28%]": 2,
+    "P[0.00-0.65]_O2[28-35%]": 14,
+    "P[0.00-0.65]_O2[35-50%]": 19,
+    "P[0.65-0.90]_O2[10-16%]": 4,
+    "P[0.65-0.90]_O2[16-22%]": 51,
+    "P[0.65-0.90]_O2[22-28%]": 35,
+    "P[0.65-0.90]_O2[28-35%]": 17,
+    "P[0.65-0.90]_O2[35-50%]": 0,
+    "P[0.90-1.15]_O2[10-16%]": 52,
+    "P[0.90-1.15]_O2[16-22%]": 259,
+    "P[0.90-1.15]_O2[22-28%]": 20,
+    "P[0.90-1.15]_O2[28-35%]": 20,
+    "P[0.90-1.15]_O2[35-50%]": 160,
+    "P[1.15-1.80]_O2[10-16%]": 0,
+    "P[1.15-1.80]_O2[16-22%]": 9,
+    "P[1.15-1.80]_O2[22-28%]": 0,
+    "P[1.15-1.80]_O2[28-35%]": 0,
+    "P[1.15-1.80]_O2[35-50%]": 56,
+    "P[1.80-3.20]_O2[10-16%]": 0,
+    "P[1.80-3.20]_O2[16-22%]": 57,
+    "P[1.80-3.20]_O2[22-28%]": 0,
+    "P[1.80-3.20]_O2[28-35%]": 2,
+    "P[1.80-3.20]_O2[35-50%]": 30
+  },
+  "total_cells": 25,
+  "zero_coverage_blind_spots": 6,
+  "blind_spot_cells": [
+    "P[0.65-0.90]_O2[35-50%]",
+    "P[1.15-1.80]_O2[10-16%]",
+    "P[1.15-1.80]_O2[22-28%]",
+    "P[1.15-1.80]_O2[28-35%]",
+    "P[1.80-3.20]_O2[10-16%]",
+    "P[1.80-3.20]_O2[22-28%]"
+  ],
+  "sparse_cells": [
+    "P[0.00-0.65]_O2[10-16%]",
+    "P[0.00-0.65]_O2[22-28%]",
+    "P[1.80-3.20]_O2[28-35%]"
+  ],
+  "established_exploration_scenarios": [
+    {
+      "id": "GAP-01",
+      "title": "Lunar/Mars Exploration Habitat Atmosphere (0.57 atm / 34% O\u2082)",
+      "target_conditions": {
+        "pressure_atm": 0.57,
+        "x_o2": 0.34,
+        "gravity": "0g"
+      },
+      "focus_fuels": [
+        "n-heptane",
+        "PMMA",
+        "Nomex/Kevlar fabrics"
+      ],
+      "criticality": "HIGH",
+      "scientific_rationale": "NASA's Exploration Atmospheres architecture adopts 8.2 psia (56.5 kPa) and 34% oxygen for EVA transit. Reduced pressure increases gas diffusivity while elevated oxygen significantly accelerates flame spread and lowers ignition energy.",
+      "empirical_gap_identified": "Historical FLEX droplet tests evaluated 0.69 to 3.0 atm; zero droplet combustion experiments exist at 0.57 atm. Solid spread tests (Saffire) tested near-ambient or 1 atm.",
+      "proposed_experiment": {
+        "title": "Sub-Atmospheric Hyperoxic Droplet Burning & Extinction Test",
+        "facility": "NASA Glenn Zero Gravity Research Facility (ZGF Drop Tower) / ISS CIR",
+        "recommended_matrix": [
+          {
+            "pressure_atm": 0.57,
+            "x_o2": 0.34,
+            "diluent": "N2",
+            "d0_mm": 2.0
+          },
+          {
+            "pressure_atm": 0.57,
+            "x_o2": 0.34,
+            "diluent": "N2",
+            "d0_mm": 3.5
+          },
+          {
+            "pressure_atm": 0.57,
+            "x_o2": 0.28,
+            "diluent": "N2",
+            "d0_mm": 3.0
+          }
+        ],
+        "expected_outcome": "Quantify whether radiative extinction limits shift to smaller droplet diameters and determine if cool flame transitions persist at 0.57 atm.",
+        "disclaimer": "Proposed follow-up experiment \u2014 formulated as an exploratory research proposal, not an established NASA flight mandate."
+      }
+    },
+    {
+      "id": "GAP-02",
+      "title": "High-Concentration CO\u2082 Quenching in Low Forced Convective Flows",
+      "target_conditions": {
+        "pressure_atm": 1.0,
+        "x_o2": 0.18,
+        "x_co2": 0.45,
+        "gravity": "0g"
+      },
+      "focus_fuels": [
+        "Methanol",
+        "Ethanol",
+        "Saffire SIBAL fabric"
+      ],
+      "criticality": "MEDIUM",
+      "scientific_rationale": "While droplet tests verified >30% CO\u2082 quenches isolated liquid droplets, the interaction between CO\u2082 extinguisher deployment and ventilation draft (5\u201320 cm/s) across porous solid fabrics in microgravity remains uncharacterized.",
+      "empirical_gap_identified": "BASS and Saffire investigated airflow spread, but rarely combined concurrent flow with high localized CO\u2082 extinguishing concentrations.",
+      "proposed_experiment": {
+        "title": "Microgravity Smoldering and Flame Quenching Under CO\u2082 Injection with Concurrent Draft",
+        "facility": "SoFIE (Solid Fuel Ignition and Extinction) insert aboard CIR",
+        "recommended_matrix": [
+          {
+            "pressure_atm": 1.0,
+            "x_o2": 0.21,
+            "co2_injection_pct": 40.0,
+            "flow_cm_s": 10.0
+          },
+          {
+            "pressure_atm": 1.0,
+            "x_o2": 0.21,
+            "co2_injection_pct": 50.0,
+            "flow_cm_s": 20.0
+          }
+        ],
+        "expected_outcome": "Determine whether localized CO\u2082 discharge extinguishes the flame or merely forces transition to low-oxygen subsurface smoldering.",
+        "disclaimer": "Proposed follow-up experiment \u2014 formulated as an exploratory research proposal, not an established NASA flight mandate."
+      }
+    },
+    {
+      "id": "GAP-03",
+      "title": "Low-Gravity Partial Buoyancy Regimes (Lunar 0.16g and Martian 0.38g)",
+      "target_conditions": {
+        "gravity": "0.16g / 0.38g",
+        "pressure_atm": 0.57,
+        "x_o2": 0.34
+      },
+      "focus_fuels": [
+        "Heptane",
+        "Polyethylene",
+        "Nomex"
+      ],
+      "criticality": "HIGH",
+      "scientific_rationale": "Terrestrial 1g creates dominant upward buoyancy. 0g eliminates buoyancy entirely. Partial gravities (Moon/Mars) exist in an unstable intermediate regime where buoyant flow is weak yet non-zero, potentially trapping toxic combustion products close to ignition surfaces.",
+      "empirical_gap_identified": "99% of NASA Physical Sciences combustion trials were flown at 0g aboard the ISS or drop towers, with the remaining fraction tested in 1g. Fractional gravity data is almost non-existent in public archives.",
+      "proposed_experiment": {
+        "title": "Parabolic Flight / Centrifuge-Augmented Partial Gravity Flame Morphology Study",
+        "facility": "Reduced Gravity Parabolic Aircraft (Lunar & Martian parabolic maneuvers)",
+        "recommended_matrix": [
+          {
+            "target_g": 0.16,
+            "fuel": "Heptane",
+            "p_atm": 1.0,
+            "x_o2": 0.21
+          },
+          {
+            "target_g": 0.38,
+            "fuel": "Heptane",
+            "p_atm": 1.0,
+            "x_o2": 0.21
+          }
+        ],
+        "expected_outcome": "Measure transition Reynolds and Grashof numbers where flame transitions from spherical symmetry to buoyant plume.",
+        "disclaimer": "Proposed follow-up experiment \u2014 formulated as an exploratory research proposal, not an established NASA flight mandate."
+      }
+    }
+  ]
+}

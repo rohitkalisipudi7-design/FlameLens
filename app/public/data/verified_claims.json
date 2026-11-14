@@ -1,0 +1,103 @@
+[
+  {
+    "claim_id": "CLM-001",
+    "claim_text": "Heptane droplets burning in microgravity exhibit secondary cool flame combustion following visible flame radiative extinction.",
+    "category": "EXPERIMENTALLY_VERIFIED",
+    "primary_investigation": "PSI-69 (FLEX)",
+    "supporting_evidence_ids": [
+      "EVID-5C7F1ED4E37A",
+      "PSI-69:DropletData-FLEX"
+    ],
+    "contradicting_evidence_ids": [],
+    "literature_citations": [
+      "Nayagam et al., 2012 (Combustion and Flame 159)",
+      "Williams et al., 2014"
+    ],
+    "verification_explanation": "Directly observed across multiple large heptane droplet trials aboard the ISS CIR rack. After hot flame soot luminescence extinguishes, the droplet silhouette continues shrinking due to low-temperature oxidation (~430 \u00b0C).",
+    "confidence": 0.98
+  },
+  {
+    "claim_id": "CLM-002",
+    "claim_text": "NASA-STD-6001B upward flame propagation (Test 1) in 1g is non-conservative for certain materials in microgravity with concurrent flow.",
+    "category": "CONFLICTING_EVIDENCE",
+    "primary_investigation": "PSI-99 (Saffire-II) / PSI-25 (BASS-II)",
+    "supporting_evidence_ids": [
+      "PSI-99:Saffire-II-Silicone",
+      "PSI-25:BASS-II-PMMA"
+    ],
+    "contradicting_evidence_ids": [
+      "NASA-STD-6001B-Test1"
+    ],
+    "literature_citations": [
+      "Urban et al., 2019 (NASA/TM-2019-220054)",
+      "Dietrich et al., 2017"
+    ],
+    "verification_explanation": "Terrestrial 1g certification burns samples upward where buoyant convective flow sweeps heat into the unburned solid. In 0g with low concurrent airflows (e.g. 20 cm/s cabin ventilation), flame residence times increase and oxygen diffusion differs. Saffire-II confirmed silicone self-extinguished in 0g while burning completely in 1g, whereas thin SIBAL fabrics propagated continuously.",
+    "confidence": 0.95
+  },
+  {
+    "claim_id": "CLM-003",
+    "claim_text": "Ambient carbon dioxide (CO\u2082) above 30% concentration reliably extinguishes methanol droplet flames in microgravity.",
+    "category": "EXPERIMENTALLY_VERIFIED",
+    "primary_investigation": "PSI-69 (FLEX)",
+    "supporting_evidence_ids": [
+      "PSI-69:FLEX-CO2-Trials"
+    ],
+    "contradicting_evidence_ids": [],
+    "literature_citations": [
+      "Hicks et al., 2010 (NTRS-20100033120)"
+    ],
+    "verification_explanation": "97% of methanol droplets tested in FLEX with >30% CO\u2082 extinguished prior to burnout due to enhanced gas-phase radiative loss and lower flame temperature. Supports the use of CO\u2082 portable fire extinguishers aboard the ISS.",
+    "confidence": 0.96
+  },
+  {
+    "claim_id": "CLM-004",
+    "claim_text": "Droplet burning rates under NASA Lunar/Mars exploration atmospheres (0.57 atm, 34% O\u2082) are known from historical ISS test data.",
+    "category": "INSUFFICIENT_EVIDENCE",
+    "primary_investigation": "PSI-69 (FLEX) Coverage Gap",
+    "supporting_evidence_ids": [],
+    "contradicting_evidence_ids": [
+      "PSI-69:Minimum-Pressure-0.69atm"
+    ],
+    "literature_citations": [
+      "NASA Spacecraft Fire Safety Workshop 2024",
+      "JSC-29353B"
+    ],
+    "verification_explanation": "FLEX droplet trials never tested ambient pressures below 0.69 atm. While 34% oxygen is within tested range, the coupled condition of 0.57 atm and 34% O\u2082 represents an empirical blind spot. Any prediction is an extrapolation.",
+    "confidence": 0.99
+  },
+  {
+    "claim_id": "CLM-005",
+    "claim_text": "Helium diluent increases the burning rate K of liquid fuel droplets in microgravity compared to nitrogen diluent.",
+    "category": "EXPERIMENTALLY_VERIFIED",
+    "primary_investigation": "PSI-69 (FLEX)",
+    "supporting_evidence_ids": [
+      "PSI-69:FLEX-He-Runs"
+    ],
+    "contradicting_evidence_ids": [],
+    "literature_citations": [
+      "Farouk et al., 2014 (Combustion Theory and Modelling)"
+    ],
+    "verification_explanation": "FLEX measured an average 40% higher burning rate in helium-diluted atmospheres (>20% He) due to helium's high thermal conductivity accelerating heat transfer back to the liquid droplet surface.",
+    "confidence": 0.94
+  },
+  {
+    "claim_id": "CLM-006",
+    "claim_text": "Microgravity droplet diameter shrinkage strictly follows the d\u00b2-law (d\u00b2 = d\u2080\u00b2 - K\u00b7t) throughout the entire lifetime without deviation.",
+    "category": "CONFLICTING_EVIDENCE",
+    "primary_investigation": "PSI-69 (FLEX)",
+    "supporting_evidence_ids": [
+      "PSI-69:Steady-Burning-Regimes"
+    ],
+    "contradicting_evidence_ids": [
+      "PSI-69:Disruptive-Boiling",
+      "PSI-69:Cool-Flame-Transition"
+    ],
+    "literature_citations": [
+      "Law, C.K., Combustion Physics (2006)",
+      "Nayagam et al., 2012"
+    ],
+    "verification_explanation": "The d\u00b2 law holds during quasi-steady hot diffusion combustion. However, deviation occurs during droplet heat-up (initial transient), radiative extinction, micro-explosions/disruptions, and the lower-rate cool flame phase.",
+    "confidence": 0.97
+  }
+]

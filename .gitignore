@@ -1,0 +1,35 @@
+# Environments and dependencies (regenerated)
+.venv/
+node_modules/
+app/dist/
+__pycache__/
+*.pyc
+
+# Vercel build & deployment metadata
+.vercel/
+
+# Local verification artifacts and screenshots
+screenshots/
+
+# Miscellaneous and system files
+*.zip
+*.part
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.claude/
+
+# Download logs
+data/**/_*.log
+
+# NTRS: Track catalog and full-text extractions (.txt for RAG indexing); ignore bulk PDFs (818 MB).
+# Recover with: python scripts/download_ntrs.py
+data/ntrs/**/*.pdf
+
+# PSI: Track metadata, manifests, and experimental tables; ignore bulk raw data (4.2 GB).
+# Recover with: python scripts/download_psi.py
+/data/psi/*/*
+!/data/psi/*/investigation.json
+!/data/psi/*/files_manifest.csv
+!/data/psi/*/Experimental table/
