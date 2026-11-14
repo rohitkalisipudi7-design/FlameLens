@@ -117,9 +117,9 @@
   transition: transform 0.35s var(--ease), width 0.35s var(--ease);
 }
 
-/* Main Content Area */
+/* Main Content Area with generous top breathing room */
 main {
-  padding-block: 28px 80px;
+  padding-block: 40px 80px;
 }
 
 .view {

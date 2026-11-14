@@ -3,7 +3,23 @@ import { flexFindings } from "../model/findings.js";
 import { simulate } from "../model/flame.js";
 import { createFlame2D } from "../render/flame2d.js";
 
-const HERO_Q = { fuel: "Heptane", o2: 0.21, P: 1.0, co2: 0, he: 0, d0: 3.0 };
+const HERO_PRESETS = {
+  heptane: {
+    q: { fuel: "Heptane", o2: 0.21, P: 1.0, co2: 0, he: 0, d0: 3.0 },
+    caption: `3.0 mm <b>n-heptane</b> droplet · 21% O₂ · 1 atm<br><span class="dim">Incandescent soot shell & blue chemiluminescent envelope (ISS FLEX)</span>`,
+    glowColor: "rgba(255, 121, 31, 0.28)",
+  },
+  methanol: {
+    q: { fuel: "Methanol", o2: 0.21, P: 1.0, co2: 0, he: 0, d0: 3.0 },
+    caption: `3.0 mm <b>methanol</b> droplet · 21% O₂ · 1 atm<br><span class="dim">Pure non-sooting blue chemiluminescence (ISS FLEX)</span>`,
+    glowColor: "rgba(32, 185, 232, 0.28)",
+  },
+  coolflame: {
+    q: { fuel: "Heptane", o2: 0.18, P: 1.0, co2: 0, he: 0, d0: 3.6 },
+    caption: `Radiative extinction transition into <b>cool flame</b> (~600 K)<br><span class="dim">Low-temperature combustion regime discovered aboard ISS</span>`,
+    glowColor: "rgba(168, 85, 247, 0.28)",
+  },
+};
 
 export function mountPanorama(root, data, { go }) {
   const inv = data.inventory;
@@ -21,24 +37,63 @@ export function mountPanorama(root, data, { go }) {
     <!-- 6. Hero Landing Section -->
     <div class="hero">
       <div>
-        <div class="eyebrow">NASA Space Apps 2026 · Challenge #08</div>
-        <h1>Understand combustion <span class="flame" style="color:var(--color-flame)">beyond Earth.</span></h1>
+        <div class="hero-mission-badge">
+          <span class="pulse-dot"></span> NASA Physical Sciences Informatics · Challenge #08
+        </div>
+        <h1>Understand combustion <span class="hero-flame-text">beyond Earth.</span></h1>
         <p class="lede">Explore microgravity flame behavior, connect experimental evidence, and investigate data-informed directions for future combustion research.</p>
-        <div class="hero-cta" style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
-          <button type="button" class="btn primary" data-go="lab3d">Explore the Laboratory</button>
+        <div class="hero-cta">
+          <button type="button" class="btn primary" data-go="lab3d">Explore the Laboratory →</button>
           <button type="button" class="btn secondary" data-go="data">Explore the Evidence</button>
           <button type="button" class="btn secondary" data-go="optimizer">Design Optimizer</button>
         </div>
-        <div class="hero-meta" style="margin-top:24px;">
-          <span><b>${inv.length}</b> flight campaigns</span>
-          <span><b>${rows.toLocaleString("en-US")}</b> tabulated test runs</span>
-          <span><b>${data.totals.ntrs}</b> technical reports</span>
+        <div class="hero-stat-grid">
+          <div class="hero-stat-box">
+            <b>${inv.length}</b>
+            <span>Flight Campaigns</span>
+          </div>
+          <div class="hero-stat-box">
+            <b>${rows.toLocaleString("en-US")}</b>
+            <span>Tabulated Space Runs</span>
+          </div>
+          <div class="hero-stat-box">
+            <b>${data.totals.ntrs}</b>
+            <span>NASA Reports & Papers</span>
+          </div>
         </div>
       </div>
-      <figure class="porthole-wrap" style="margin:0">
-        <div class="porthole" id="porthole"><canvas id="hero-flame" aria-label="Heptane droplet burning in microgravity"></canvas></div>
-        <figcaption class="porthole-caption">3 mm <b>heptane</b> droplet · 21% O₂ · 1 atm<br><span class="dim">prediction derived from empirical FLEX flight data</span></figcaption>
-      </figure>
+
+      <div class="chamber-viewport-wrap">
+        <div class="chamber-viewport porthole" id="porthole">
+          <div class="viewport-hud-top">
+            <span class="viewport-hud-pill"><span class="pulse-dot"></span> 0g Microgravity</span>
+            <span class="viewport-hud-pill">ISS CIR / MDCA</span>
+          </div>
+          <div class="viewport-reticle">
+            <span class="reticle-tick t-top"></span>
+            <span class="reticle-tick t-bottom"></span>
+            <span class="reticle-tick t-left"></span>
+            <span class="reticle-tick t-right"></span>
+          </div>
+          <canvas id="hero-flame" aria-label="Microgravity spherical flame simulation"></canvas>
+          <div class="viewport-hud-bottom" id="hero-hud-bottom">
+            <span id="hero-hud-telemetry">d: <b>3.00 mm</b> · <b>Spherical 0g Flame</b></span>
+          </div>
+        </div>
+
+        <!-- Interactive Combustion Mode Switcher -->
+        <div class="hero-flame-controls" role="group" aria-label="Combustion Mode Selector">
+          <button type="button" class="flame-mode-chip active" data-preset="heptane">🔥 Heptane (Soot Shell)</button>
+          <button type="button" class="flame-mode-chip" data-preset="methanol">🔷 Methanol (Blue Flame)</button>
+          <button type="button" class="flame-mode-chip" data-preset="coolflame">❄️ Cool Flame</button>
+          <button type="button" class="flame-mode-chip" id="hero-reignite" title="Re-ignite droplet">↻ Re-ignite</button>
+        </div>
+
+        <figcaption class="porthole-caption" id="hero-caption" style="max-width:380px;">
+          3 mm <b>heptane</b> droplet · 21% O₂ · 1 atm<br>
+          <span class="dim">Incandescent soot shell & blue chemiluminescent envelope (ISS FLEX)</span>
+        </figcaption>
+      </div>
     </div>
 
     <!-- Core Research Pillars Spotlight -->
@@ -144,17 +199,7 @@ export function mountPanorama(root, data, { go }) {
 
   root.querySelectorAll("[data-go]").forEach((b) => b.addEventListener("click", () => go(b.dataset.go)));
 
-  // Porthole screws
   const port = root.querySelector("#porthole");
-  for (let i = 0; i < 12; i++) {
-    const a = (i / 12) * Math.PI * 2;
-    const bolt = document.createElement("span");
-    bolt.className = "bolt";
-    bolt.style.left = `calc(50% + ${Math.cos(a) * 46.2}% - 4.5px)`;
-    bolt.style.top = `calc(50% + ${Math.sin(a) * 46.2}% - 4.5px)`;
-    port.appendChild(bolt);
-  }
-
   const maxGb = Math.max(...inv.map((r) => r.gb));
   root.querySelector("#inv").innerHTML =
     `<thead><tr><th>Investigation</th><th>Area</th><th>Period</th><th class="num">Runs</th><th class="num">Total PSI Size</th><th class="num">Downloaded</th><th>DOI</th></tr></thead><tbody>` +
@@ -169,8 +214,55 @@ export function mountPanorama(root, data, { go }) {
         <td style="white-space:nowrap">${r.doi ? `<a href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener">${esc(r.acc)}</a>` : esc(r.acc)}</td>
       </tr>`).join("") + "</tbody>";
 
-  const heroSim = simulate(flex, HERO_Q);
-  const flame = createFlame2D(root.querySelector("#hero-flame"), { getSim: () => heroSim, scale: 1.5, bg: "#020309", frac: 0.45 });
+  let activePresetKey = "heptane";
+  let activeSim = simulate(flex, HERO_PRESETS[activePresetKey].q);
+
+  const flame = createFlame2D(root.querySelector("#hero-flame"), {
+    getSim: () => activeSim,
+    scale: 1.5,
+    bg: "#030811",
+    frac: 0.55,
+    onHud: ({ t, d, label }) => {
+      const hudEl = root.querySelector("#hero-hud-telemetry");
+      if (hudEl) {
+        hudEl.innerHTML = `t = <b>${t.toFixed(1)} s</b> · d = <b>${d.toFixed(2)} mm</b> · <b>${esc(label)}</b>`;
+      }
+    },
+  });
+
+  const chamberEl = root.querySelector("#porthole");
+  const captionEl = root.querySelector("#hero-caption");
+
+  const chips = root.querySelectorAll(".flame-mode-chip[data-preset]");
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      chips.forEach((c) => {
+        c.classList.remove("active");
+        c.classList.remove("blue");
+      });
+      chip.classList.add("active");
+      activePresetKey = chip.dataset.preset;
+      if (activePresetKey === "methanol") chip.classList.add("blue");
+
+      const preset = HERO_PRESETS[activePresetKey];
+      activeSim = simulate(flex, preset.q);
+      activeSim.t0 = performance.now();
+      if (captionEl) captionEl.innerHTML = preset.caption;
+      if (chamberEl) {
+        chamberEl.style.boxShadow = `0 0 0 1px rgba(255, 255, 255, 0.08), 0 24px 60px -12px rgba(0, 0, 0, 0.85), 0 0 70px -15px ${preset.glowColor}`;
+      }
+      flame.redraw();
+    });
+  });
+
+  const reigniteBtn = root.querySelector("#hero-reignite");
+  reigniteBtn?.addEventListener("click", () => {
+    const preset = HERO_PRESETS[activePresetKey];
+    activeSim = simulate(flex, preset.q);
+    activeSim.t0 = performance.now();
+    flame.redraw();
+  });
+
   let active = false;
   let visible = true;
   const io = new IntersectionObserver(([e]) => {
@@ -178,7 +270,7 @@ export function mountPanorama(root, data, { go }) {
     if (active && visible) flame.start();
     else flame.stop();
   });
-  io.observe(port);
+  if (port) io.observe(port);
 
   return {
     enter() { active = true; if (visible) flame.start(); },
