@@ -18,27 +18,54 @@ export function mountPanorama(root, data, { go }) {
   const hiO2lowP = flex.filter((r) => r.o2 >= 0.3 && r.P < 0.9).length;
 
   root.innerHTML = `
+    <!-- 6. Hero Landing Section -->
     <div class="hero">
       <div>
         <div class="eyebrow">NASA Space Apps 2026 · Challenge #08</div>
-        <h1>How Fire Burns <span class="flame">in Freefall</span></h1>
-        <p class="lede">Three decades of microgravity combustion experiments aboard the International Space Station—aggregated, standardized, and explained. Every metric links to its NASA source document or empirical table to support evidence-grounded spacecraft fire safety decisions.</p>
-        <div class="hero-cta">
-          <button type="button" class="btn primary" data-go="data">Explore the Runs</button>
-          <button type="button" class="btn" data-go="simulator">Launch Simulator</button>
+        <h1>Understand combustion <span class="flame" style="color:var(--color-flame)">beyond Earth.</span></h1>
+        <p class="lede">Explore microgravity flame behavior, connect experimental evidence, and investigate data-informed directions for future combustion research.</p>
+        <div class="hero-cta" style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button type="button" class="btn primary" data-go="lab3d">Explore the Laboratory</button>
+          <button type="button" class="btn secondary" data-go="data">Explore the Evidence</button>
+          <button type="button" class="btn secondary" data-go="optimizer">Design Optimizer</button>
         </div>
-        <div class="hero-meta">
-          <span><b>${inv.length}</b> campaigns</span>
-          <span><b>${rows.toLocaleString("en-US")}</b> tabulated runs</span>
+        <div class="hero-meta" style="margin-top:24px;">
+          <span><b>${inv.length}</b> flight campaigns</span>
+          <span><b>${rows.toLocaleString("en-US")}</b> tabulated test runs</span>
           <span><b>${data.totals.ntrs}</b> technical reports</span>
         </div>
       </div>
       <figure class="porthole-wrap" style="margin:0">
         <div class="porthole" id="porthole"><canvas id="hero-flame" aria-label="Heptane droplet burning in microgravity"></canvas></div>
-        <figcaption class="porthole-caption">3 mm <b>heptane</b> droplet · 21% O₂ · 1 atm<br><span class="dim">prediction derived from FLEX flight data</span></figcaption>
+        <figcaption class="porthole-caption">3 mm <b>heptane</b> droplet · 21% O₂ · 1 atm<br><span class="dim">prediction derived from empirical FLEX flight data</span></figcaption>
       </figure>
     </div>
 
+    <!-- Core Research Pillars Spotlight -->
+    <div class="grid-3" style="margin-block:10px 14px;">
+      <article class="panel feature" style="cursor:pointer;" data-go="lab3d">
+        <div class="eyebrow" style="color:var(--color-flame); margin-bottom:8px;">Virtual Instrument</div>
+        <h3 style="margin-bottom:8px;">3D Combustion Laboratory</h3>
+        <p class="small dim" style="margin-bottom:16px;">Situates droplet burning within the ISS Combustion Integrated Rack (CIR). Features continuous partial-gravity responses (0g, 0.16g, 0.38g, 1.0g) and scientific diagnostic cameras (Color, HiBMS shadowgraphy, LLUV chemiluminescence).</p>
+        <span class="btn small primary" style="align-self:start;">Launch 3D Lab →</span>
+      </article>
+
+      <article class="panel feature" style="cursor:pointer;" data-go="data">
+        <div class="eyebrow" style="color:var(--color-cyan); margin-bottom:8px;">Traceable Flight Data</div>
+        <h3 style="margin-bottom:8px;">Evidence Explorer</h3>
+        <p class="small dim" style="margin-bottom:16px;">Inspect 2,009 microgravity test runs and 277 indexed NTRS scientific papers across 24 flight investigations. Complete provenance with source-line pointers, quality verification, and zero silent data alterations.</p>
+        <span class="btn small secondary" style="align-self:start;">Explore Records →</span>
+      </article>
+
+      <article class="panel feature" style="cursor:pointer;" data-go="optimizer">
+        <div class="eyebrow" style="color:var(--color-blue); margin-bottom:8px;">Bayesian Active Learning</div>
+        <h3 style="margin-bottom:8px;">Design Optimizer</h3>
+        <p class="small dim" style="margin-bottom:16px;">Pointwise Expected Information Gain (EIG) over fuel-stratified Gaussian Process Regression models. Identifies high-value experimental targets that maximize scientific discovery while enforcing spacecraft safety envelopes.</p>
+        <span class="btn small secondary" style="align-self:start;">Optimize Design →</span>
+      </article>
+    </div>
+
+    <!-- Quantitative Data Totals -->
     <div class="kpis">
       ${[
       [inv.length, "combustion investigations in the NASA PSI repository"],
@@ -49,7 +76,8 @@ export function mountPanorama(root, data, { go }) {
     ].map(([b, s]) => `<div class="panel kpi"><b>${b}</b><span>${s}</span></div>`).join("")}
     </div>
 
-    <div class="section-head">
+    <!-- The Research Problem -->
+    <div class="section-head" style="margin-top:14px;">
       <div class="eyebrow">The Real Problem</div>
       <h2>Where Scientists Get Stuck Today</h2>
       <p class="lede">What we discovered when downloading and linking the data. Each card presents the underlying evidence and where visual analytics makes a difference.</p>
@@ -86,15 +114,16 @@ export function mountPanorama(root, data, { go }) {
       },
     ].map((x) => `
         <article class="panel problem">
-          <span class="tag">${x.tag}</span>
+          <span class="tag" style="border-color:var(--color-border-strong); background:var(--color-panel-raised); color:var(--color-cyan);">${x.tag}</span>
           <h3>${x.h}</h3>
           <p>${x.p}</p>
-          <div class="evidence">${x.ev}</div>
-          <div class="attack">${x.at}</div>
+          <div class="evidence" style="border-left:2px solid var(--color-cyan);">${x.ev}</div>
+          <div class="attack" style="border-left:2px solid var(--color-flame);">${x.at}</div>
         </article>`).join("")}
     </div>
 
-    <div class="section-head">
+    <!-- Empirical Insights -->
+    <div class="section-head" style="margin-top:14px;">
       <div class="eyebrow">What the Data Already Tells Us</div>
       <h2>Insights Across 273 Droplets Ignited in Orbit</h2>
       <p class="lede">Calculated in real time from the empirical FLEX dataset. These represent empirical correlations across trials to be corroborated with physical kinetics and literature.</p>
@@ -103,7 +132,8 @@ export function mountPanorama(root, data, { go }) {
       ${flexFindings(flex).map((f) => `<article class="panel finding"><div class="big">${f.big}</div><p>${f.text}</p><div class="src">${f.src}</div></article>`).join("")}
     </div>
 
-    <div class="section-head">
+    <!-- Investigation Inventory -->
+    <div class="section-head" style="margin-top:14px;">
       <div class="eyebrow">Inventory</div>
       <h2>The 24 Research Campaigns</h2>
       <p class="lede">Runs = rows in each investigation's experimental table. Total PSI size = all published files (predominantly video); Downloaded = tables, documents, and reduced telemetry.</p>

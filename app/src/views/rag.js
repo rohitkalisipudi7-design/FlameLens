@@ -48,7 +48,7 @@ export function mountRag(root, data, shared) {
           <div class="rag-msg bot">
             <div class="rag-avatar">🚀</div>
             <div class="rag-bubble">
-              <p><b>Hello! I am the Flame in Freefall scientific assistant.</b></p>
+              <p><b>Hello! I am the FlameLens AI scientific research assistant.</b></p>
               <p>I have direct access to 277 NTRS technical reports and NASA OLAP Cube flight telemetry. Feel free to ask about materials, flight investigations (Saffire, FLEX, BASS), spherical flame physics, or spacecraft certification standards.</p>
             </div>
           </div>

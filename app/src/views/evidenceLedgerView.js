@@ -13,7 +13,7 @@ export function mountEvidenceLedger(root, data, { go }) {
     <div class="section-head">
       <div class="eyebrow">Module 07 · Provenance, Quality & Reproducibility</div>
       <h2>Scientific Evidence & Validation Center</h2>
-      <p class="lede">Every measurement in Flame in Freefall is anchored in traceable spaceflight records. Inspect raw vs normalized readings, verified source lines, multi-dimensional quality scores, parameter space blind-spots, and analytical reproducibility snapshots.</p>
+      <p class="lede">Every measurement in FlameLens AI is anchored in traceable spaceflight records. Inspect raw vs normalized readings, verified source lines, multi-dimensional quality scores, parameter space blind-spots, and analytical reproducibility snapshots.</p>
     </div>
 
     <!-- Top KPI Cards: Quality Gate Summary -->

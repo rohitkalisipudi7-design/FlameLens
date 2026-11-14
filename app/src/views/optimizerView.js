@@ -105,8 +105,8 @@ export function mountOptimizer(root, data, { go }) {
               <span style="width:8px; height:8px; border-radius:50%; background:#0284c7; display:inline-block;"></span>
               <span id="opt-hist-legend-text">Verified NASA Historical Runs</span>
             </span>
-            <span style="display:inline-flex; align-items:center; gap:5px; color:#fbbf24;">
-              <span style="width:8px; height:8px; border-radius:50%; background:#f59e0b; display:inline-block;"></span> Feasible Candidates
+            <span style="display:inline-flex; align-items:center; gap:5px; color:var(--color-flame-bright);">
+              <span style="width:8px; height:8px; border-radius:50%; background:var(--color-flame); display:inline-block;"></span> Feasible Candidates
             </span>
             <span style="display:inline-flex; align-items:center; gap:5px; color:#ef4444;">
               <span style="width:8px; height:8px; border-radius:50%; background:#dc2626; display:inline-block;"></span> Infeasible (Wireframe)
@@ -190,7 +190,7 @@ export function mountOptimizer(root, data, { go }) {
         <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
           <span class="dim small" id="opt-benchmark-pill" style="color:var(--good); font-weight:600; font-family:var(--f-mono); font-size:11px;">Sequential Active Learning: Evaluating...</span>
           <button type="button" class="btn small" id="opt-btn-toggle-benchmark" style="padding:3px 8px; font-size:11px;">
-            📊 Benchmark Comparison
+            📊 Retrospective benchmark
           </button>
         </div>
       </div>
@@ -306,31 +306,31 @@ export function mountOptimizer(root, data, { go }) {
     const status = cand.feasibilityStatus || (cand.isFeasible ? "FEASIBLE_SPACEFLIGHT" : "UNSUPPORTED");
     if (status === "FEASIBLE_SPACEFLIGHT") {
       statusEl.className = "status st-good";
-      statusEl.style.background = "rgba(34,197,94,0.15)";
-      statusEl.style.color = "#86efac";
-      statusEl.style.borderColor = "#22c55e";
-      statusEl.textContent = "FEASIBLE: SPACEFLIGHT QUALIFIED (ISS CIR)";
-      if (feasSourceEl) feasSourceEl.textContent = `Hardware: ${cand.feasibilitySource || 'ISS CIR / MDCA (NASA/TP-2017-219299)'}`;
+      statusEl.style.background = "var(--good-bg)";
+      statusEl.style.color = "var(--good-ink)";
+      statusEl.style.borderColor = "var(--good)";
+      statusEl.textContent = "Hypothetical candidate · Spaceflight Feasible";
+      if (feasSourceEl) feasSourceEl.textContent = `Model prediction · Hardware: ${cand.feasibilitySource || 'ISS CIR / MDCA (NASA/TP-2017-219299)'}`;
     } else if (status === "GROUND_FACILITY_ONLY") {
       statusEl.className = "status st-warn";
-      statusEl.style.background = "rgba(245,158,11,0.15)";
-      statusEl.style.color = "#fde68a";
-      statusEl.style.borderColor = "#f59e0b";
-      statusEl.textContent = "FEASIBLE: GROUND FACILITY ONLY (Drop Tower)";
-      if (feasSourceEl) feasSourceEl.textContent = `Hardware: ${cand.feasibilitySource || 'NASA TM-107000 Zero-Gravity Facility'}`;
+      statusEl.style.background = "var(--warn-bg)";
+      statusEl.style.color = "var(--warn-ink)";
+      statusEl.style.borderColor = "var(--warn)";
+      statusEl.textContent = "Hypothetical candidate · Ground Facility Only";
+      if (feasSourceEl) feasSourceEl.textContent = `Model prediction · Hardware: ${cand.feasibilitySource || 'NASA TM-107000 Zero-Gravity Facility'}`;
     } else if (status === "HYPOTHETICAL_FRONTIER") {
       statusEl.className = "status st-info";
-      statusEl.style.background = "rgba(168,85,247,0.15)";
-      statusEl.style.color = "#d8b4fe";
-      statusEl.style.borderColor = "#a855f7";
-      statusEl.textContent = "HYPOTHETICAL FRONTIER TARGET";
-      if (feasSourceEl) feasSourceEl.textContent = `Standard: ${cand.feasibilitySource || 'NASA-STD-3001 Vol 2 Habitat Standard'}`;
+      statusEl.style.background = "rgba(32, 185, 232, 0.15)";
+      statusEl.style.color = "var(--color-cyan)";
+      statusEl.style.borderColor = "var(--color-cyan)";
+      statusEl.textContent = "Hypothetical candidate · Exploration Frontier Target";
+      if (feasSourceEl) feasSourceEl.textContent = `Model prediction · Standard: ${cand.feasibilitySource || 'NASA-STD-3001 Vol 2 Habitat Standard'}`;
     } else {
       statusEl.className = "status st-warn";
-      statusEl.style.background = "rgba(239,68,68,0.2)";
-      statusEl.style.color = "#fca5a5";
-      statusEl.style.borderColor = "#ef4444";
-      statusEl.textContent = "UNSUPPORTED / CONSTRAINT VIOLATION";
+      statusEl.style.background = "var(--crit-bg)";
+      statusEl.style.color = "var(--crit-ink)";
+      statusEl.style.borderColor = "var(--crit)";
+      statusEl.textContent = "Unsupported condition · Constraint Violation";
       if (feasSourceEl) feasSourceEl.textContent = `Constraint: ${cand.feasibilitySource || 'Envelope Exceeded'}`;
     }
 
@@ -346,13 +346,13 @@ export function mountOptimizer(root, data, { go }) {
     if (extrapAlert && extrapText) {
       if (Math.abs(activeGravity - 0.16) < 0.01 || Math.abs(activeGravity - 0.38) < 0.01) {
         extrapAlert.style.display = "block";
-        extrapText.textContent = "Scientific Notice: The current empirical droplet combustion dataset contains no partial-gravity trials. Predictions at 0.16g and 0.38g are extrapolations and must not be interpreted as experimentally validated gravity-dependent predictions.";
+        extrapText.innerHTML = "<strong>Extrapolation:</strong> The current empirical droplet combustion dataset contains no partial-gravity trials. Predictions at 0.16g and 0.38g are extrapolations and must not be interpreted as experimentally validated gravity-dependent predictions.";
       } else if (activeGravity >= 1.0) {
         extrapAlert.style.display = "block";
-        extrapText.textContent = "Scientific Notice: Terrestrial 1.0g conditions are unsupported. Buoyant convective forces distort droplet sphericity and render microgravity GPR uncalibrated.";
+        extrapText.innerHTML = "<strong>Unsupported condition:</strong> Terrestrial 1.0g conditions are unsupported. Buoyant convective forces distort droplet sphericity and render microgravity GPR uncalibrated.";
       } else if (cand.exploration_target) {
         extrapAlert.style.display = "block";
-        extrapText.textContent = "Exploration Habitat Target: Candidate targets NASA Exploration Atmosphere (0.57 atm / 34% O₂ per NASA-STD-3001 Vol 2). Sub-atmospheric chamber evacuation required.";
+        extrapText.innerHTML = "<strong>Exploration Frontier Target:</strong> Candidate targets NASA Exploration Atmosphere (0.57 atm / 34% O₂ per NASA-STD-3001 Vol 2). Sub-atmospheric chamber evacuation required.";
       } else {
         extrapAlert.style.display = "none";
       }
@@ -410,10 +410,10 @@ export function mountOptimizer(root, data, { go }) {
 
     const statusEl = q("#opt-cand-status");
     statusEl.className = "status st-info";
-    statusEl.style.background = "rgba(14, 165, 233, 0.2)";
-    statusEl.style.color = "#38bdf8";
-    statusEl.style.borderColor = "#0284c7";
-    statusEl.textContent = `EMPIRICAL NASA PSI RUN (${hist.accession || 'NASA PSI'})`;
+    statusEl.style.background = "rgba(32, 185, 232, 0.15)";
+    statusEl.style.color = "var(--color-cyan)";
+    statusEl.style.borderColor = "var(--color-cyan)";
+    statusEl.textContent = `Historical observation · NASA PSI Flight Record (${hist.accession || 'NASA PSI'})`;
 
     q("#opt-rank-indicator").style.display = "none";
     q("#opt-violations-alert").style.display = "none";

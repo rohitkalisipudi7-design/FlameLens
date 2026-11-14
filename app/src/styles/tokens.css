@@ -1,66 +1,95 @@
-/* Tokens de diseño. La app se compromete con un solo tema oscuro: el fondo es el espacio. */
+/* ==========================================================================
+   FlameLens AI — Cinematic Space-Research Design Tokens
+   NASA Space Apps Challenge 2026: Flame in Freefall
+   ========================================================================== */
+
 :root {
   color-scheme: dark;
 
-  /* superficies */
-  --space: #03050b;
-  --panel: rgba(12, 17, 31, 0.62);
-  --panel-2: rgba(19, 26, 45, 0.74);
-  --panel-solid: #0d1322;
-  --line: rgba(150, 172, 235, 0.13);
-  --line-2: rgba(150, 172, 235, 0.26);
+  /* 2. Color System */
+  --color-space: #07111F;           /* Main background */
+  --color-space-deep: #030811;      /* Hero and deepest surfaces */
+  --color-panel: #101C2B;           /* Cards and panels */
+  --color-panel-raised: #162538;    /* Menus and raised panels */
+  --color-panel-soft: #1B2D42;      /* Hover and selected surfaces */
+  --color-border: #26384B;          /* Borders and dividers */
+  --color-border-strong: #3A5068;   /* Emphasized borders */
+  --color-text: #F5F7FA;            /* Primary text */
+  --color-text-muted: #AAB7C6;      /* Secondary text */
+  --color-text-subtle: #77889B;     /* Metadata */
+  --color-flame: #FF791F;           /* Primary flame accent */
+  --color-flame-bright: #FF9A3D;    /* Hover accent */
+  --color-flame-deep: #D95712;      /* Pressed accent */
+  --color-cyan: #20B9E8;            /* Data highlights */
+  --color-blue: #287BFF;            /* Scientific visualization */
+  --color-success: #35C98A;         /* Success */
+  --color-warning: #F4B740;         /* Caution */
+  --color-danger: #F06464;          /* Errors */
 
-  /* tinta */
-  --ink: #edf2ff;
-  --ink-2: #b1bddb;
-  --muted: #7a87a6;
+  /* Backwards-compatible aliases for existing component selectors */
+  --space: var(--color-space);
+  --space-deep: var(--color-space-deep);
+  --panel: var(--color-panel);
+  --panel-raised: var(--color-panel-raised);
+  --panel-soft: var(--color-panel-soft);
+  --panel-solid: #0d1724;
+  --line: var(--color-border);
+  --line-2: var(--color-border-strong);
 
-  /* Accent: microgravity blue diffusion flame */
-  --accent: #8fa9ff;
-  --accent-strong: #6f8cff;
-  --accent-soft: rgba(111, 140, 255, 0.14);
-  --accent-ink: #060913;
+  --ink: var(--color-text);
+  --ink-2: var(--color-text-muted);
+  --muted: var(--color-text-subtle);
 
-  /* Flame gradient: incandescent soot orange to blue diffusion chemiluminescence */
-  --flame-a: #ffd48a;
-  --flame-b: #ff8a3d;
-  --flame-c: #8fa9ff;
+  /* Primary Flame Emphasis */
+  --accent: var(--color-flame);
+  --accent-strong: var(--color-flame-bright);
+  --accent-soft: rgba(255, 121, 31, 0.12);
+  --accent-ink: #030811;
 
-  /* Fuel data series palette (verified for dark background contrast) */
-  --s-meth: #3987e5;
-  --s-hept: #d95926;
+  /* Combustion & Flame Palette */
+  --flame-a: #FFD48A;
+  --flame-b: var(--color-flame);
+  --flame-c: var(--color-cyan);
 
-  /* Sequential blue ramp for quantitative magnitude */
-  --seq-1: #104281;
-  --seq-2: #184f95;
-  --seq-3: #256abf;
-  --seq-4: #3987e5;
-  --seq-5: #6da7ec;
-  --seq-6: #b7d3f6;
+  /* Fuel Data Series Palette */
+  --s-meth: var(--color-cyan);
+  --s-hept: var(--color-flame);
 
-  /* Status badges: icon + text for high accessibility */
-  --good: #0ca30c;
-  --warn: #fab219;
-  --crit: #d03b3b;
-  --good-ink: #72e072;
-  --warn-ink: #ffcc55;
-  --crit-ink: #ff8e8e;
-  --good-bg: rgba(12, 163, 12, 0.14);
-  --warn-bg: rgba(250, 178, 25, 0.13);
-  --crit-bg: rgba(208, 59, 59, 0.16);
+  /* Sequential Quantitative Blue/Cyan Ramp */
+  --seq-1: #0A2239;
+  --seq-2: #12385C;
+  --seq-3: #1B5182;
+  --seq-4: var(--color-blue);
+  --seq-5: var(--color-cyan);
+  --seq-6: #9CE7FB;
 
-  /* forma */
-  --r-lg: 18px;
-  --r-md: 12px;
+  /* Semantic Status Indicators (Always accompanied by text or icon) */
+  --good: var(--color-success);
+  --warn: var(--color-warning);
+  --crit: var(--color-danger);
+  --bad: var(--color-danger);
+  --mint: var(--color-success);
+  --dim: var(--color-text-subtle);
+  --good-ink: #65E2A8;
+  --warn-ink: #F7C96E;
+  --crit-ink: #F58A8A;
+  --good-bg: rgba(53, 201, 138, 0.14);
+  --warn-bg: rgba(244, 183, 64, 0.14);
+  --crit-bg: rgba(240, 100, 100, 0.16);
+
+  /* 4. Layout, Geometry & Spacing */
   --r-sm: 8px;
-  --glass: saturate(135%) blur(18px);
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 50px -24px rgba(0, 0, 0, 0.8);
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-feature: 20px;
+  --glass: saturate(135%) blur(16px);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 16px 40px -20px rgba(3, 8, 17, 0.85);
 
-  /* tipografía */
-  --f-display: "Unbounded", "Segoe UI", system-ui, sans-serif;
-  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  /* 3. Typography: Legible Sans-Serif with Tabular Numerals */
+  --f-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --f-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --f-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --maxw: 1240px;
+  --maxw: 1440px;
 }

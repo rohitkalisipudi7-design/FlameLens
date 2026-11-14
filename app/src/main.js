@@ -28,16 +28,16 @@ import { mountParts, mountStack } from "./views/parts.js";
 
 const TABS = [
   { id: "panorama", label: "Overview" },
-  { id: "data", label: "Data Explorer" },
+  { id: "lab3d", label: "3D Laboratory" },
+  { id: "data", label: "Evidence Explorer" },
+  { id: "optimizer", label: "Design Optimizer" },
   { id: "compare", label: "Comparison Studio" },
   { id: "simulator", label: "Simulator" },
-  { id: "lab3d", label: "3D Combustion Lab" },
-  { id: "assistant", label: "Research AI" },
   { id: "evidence", label: "Evidence Center" },
-  { id: "optimizer", label: "Design Optimizer" },
   { id: "envelope", label: "Safety Envelope" },
   { id: "video-lab", label: "Video Intelligence" },
   { id: "contradiction", label: "Contradiction Detector" },
+  { id: "assistant", label: "Research AI" },
 ];
 
 const ALIASES = {

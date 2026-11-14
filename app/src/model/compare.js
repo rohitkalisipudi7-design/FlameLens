@@ -130,7 +130,7 @@ export function exportComparison(expA, expB, format = "json") {
   const payload = {
     metadata: {
       generated_at: new Date().toISOString(),
-      platform: "Flame in Freefall V4 — Scientific Intelligence Platform",
+      platform: "FlameLens AI — Microgravity Scientific Intelligence Platform",
     },
     experiment_a: expA,
     experiment_b: expB,

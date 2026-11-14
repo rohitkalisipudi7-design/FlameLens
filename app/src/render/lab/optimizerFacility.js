@@ -382,9 +382,9 @@ export function createOptimizerFacility(container, { proposalsData, historicalRe
   const cageW = 180, cageH = 120, cageD = 180;
   const cageGeo = new THREE.BoxGeometry(cageW, cageH, cageD);
   const cageEdges = new THREE.EdgesGeometry(cageGeo);
-  paramSpaceGroup.add(new THREE.LineSegments(cageEdges, new THREE.LineBasicMaterial({ color: 0x4f46e5, transparent: true, opacity: 0.25 })));
+  paramSpaceGroup.add(new THREE.LineSegments(cageEdges, new THREE.LineBasicMaterial({ color: 0x20b9e8, transparent: true, opacity: 0.25 })));
 
-  const gridHelper = new THREE.GridHelper(cageW, 10, 0x6366f1, 0x1e293b);
+  const gridHelper = new THREE.GridHelper(cageW, 10, 0x20b9e8, 0x26384b);
   gridHelper.position.set(0, -cageH / 2, 0);
   paramSpaceGroup.add(gridHelper);
 
@@ -514,7 +514,7 @@ export function createOptimizerFacility(container, { proposalsData, historicalRe
 
     normalizedCandidates.forEach((cand, idx) => {
       const pos = coordTo3D(cand.pressure_atm || 1.0, cand.o2_mole_fraction || 0.21, cand.droplet_diameter_mm || 1.5);
-      const colorHex = cand.exploration_target ? 0xf59e0b : 0x818cf8;
+      const colorHex = cand.exploration_target ? 0xf59e0b : 0xff791f;
 
       const candMat = new THREE.MeshStandardMaterial({
         color: colorHex,
@@ -705,8 +705,8 @@ export function createOptimizerFacility(container, { proposalsData, historicalRe
       if (feasibility.feasibilityStatus === "FEASIBLE_SPACEFLIGHT") {
         m.material.opacity = 0.95;
         m.material.wireframe = false;
-        m.material.color.setHex(0x818cf8);
-        m.material.emissive.setHex(0x4338ca);
+        m.material.color.setHex(0xff791f);
+        m.material.emissive.setHex(0xd95712);
         halo.visible = true;
       } else if (feasibility.feasibilityStatus === "GROUND_FACILITY_ONLY") {
         m.material.opacity = 0.95;

@@ -111,7 +111,10 @@ export function mountFlame3D(root, data, { controls, scenario, gravity }) {
           </div>
         </div>
         <p class="lab-envtext" id="v3-envtext"></p>
-        <p class="dim small">Free view: drag to orbit · scroll/pinch to zoom between droplet, chamber, and laboratory. Camera views: fixed diagnostic perspective; scroll applies digital zoom. In fullscreen, the "Conditions" button allows toggling fuel, atmosphere, and gravity without exiting. Illustrative recreation of hardware documented across FLEX literature (CIR, MDCA, HiBMS, LLUV, ZGF drop tower), not a manufacturing CAD model. Flame radius is qualitative; burning rates, extinction, and cool flame transitions are directly driven by empirical model predictions.</p>
+        <div class="disclosure-note cyan" style="margin-top:10px;">
+          <b>Scientific Disclosure:</b> Hardware geometry and partial-gravity buoyant flame deformation are illustrative qualitative visual heuristics, not a numerical CFD solver. Droplet burning rate constants (d² law), radiative extinction boundaries, and cool flame transitions are directly driven by empirical NASA flight observations and validated GPR predictions.
+        </div>
+        <p class="dim small" style="margin-top:8px;">Free view: drag to orbit · scroll/pinch to zoom between droplet, chamber, and laboratory. Diagnostic camera modes: fixed perspective with calibrated optical filter emulation (Color, HiBMS shadowgraphy, LLUV chemiluminescence).</p>
       </div>
     </div>`;
 
