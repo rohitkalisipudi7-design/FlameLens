@@ -878,9 +878,11 @@ export function createOptimizerFacility(container, { proposalsData, historicalRe
   ro.observe(container);
 
   let animId = null;
+  let running = true;
   const animStartTime = performance.now();
 
   function animate() {
+    if (!running) return;
     animId = requestAnimationFrame(animate);
     const t = (performance.now() - animStartTime) * 0.001;
 
@@ -916,6 +918,20 @@ export function createOptimizerFacility(container, { proposalsData, historicalRe
     },
     getCandidates: () => normalizedCandidates,
     getHistorical: () => historicalMetadata,
+    pause: () => {
+      running = false;
+      if (animId) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    },
+    resume: () => {
+      if (!running) {
+        running = true;
+        animate();
+      }
+    },
+    resize: onResize,
     dispose: () => {
       if (animId) cancelAnimationFrame(animId);
       ro.disconnect();

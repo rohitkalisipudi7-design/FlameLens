@@ -982,8 +982,8 @@ export function mountOptimizer(root, data, { go }) {
     // Highlight active card & table row
     q("#opt-candidate-strip")?.querySelectorAll(".candidate-card").forEach((card) => {
       const isMatch = card.dataset.id === cand.candidate_id;
-      card.style.borderColor = isMatch ? "var(--accent)" : "var(--line-2)";
-      card.style.background = isMatch ? "rgba(99, 102, 241, 0.25)" : (card.dataset.feasible === "true" ? "rgba(8, 12, 22, 0.7)" : "rgba(30, 10, 10, 0.6)");
+      card.style.borderColor = isMatch ? "var(--claude-primary, #cc785c)" : "var(--claude-hairline, #e6dfd8)";
+      card.style.background = isMatch ? "rgba(204, 120, 92, 0.16)" : (card.dataset.feasible === "true" ? "var(--claude-surface-card, #efe9de)" : "rgba(220, 38, 38, 0.1)");
     });
 
     q("#opt-rank-table-body")?.querySelectorAll("tr").forEach((row) => {
@@ -1081,8 +1081,8 @@ export function mountOptimizer(root, data, { go }) {
       card.style.cssText = `
         padding: 12px 14px;
         border-radius: 8px;
-        border: 1px solid ${c.isFeasible ? 'var(--line-2)' : '#dc2626'};
-        background: ${c.isFeasible ? 'rgba(8, 12, 22, 0.7)' : 'rgba(30, 10, 10, 0.6)'};
+        border: 1px solid ${c.isFeasible ? 'var(--claude-hairline, #e6dfd8)' : '#dc2626'};
+        background: ${c.isFeasible ? 'var(--claude-surface-card, #efe9de)' : 'rgba(220, 38, 38, 0.1)'};
         cursor: pointer;
         min-width: 170px;
         opacity: ${c.isFeasible ? '1.0' : '0.65'};
@@ -1177,19 +1177,40 @@ export function mountOptimizer(root, data, { go }) {
     });
   }
 
-  function applyFilters() {
-    const maxP = parseFloat(q("#opt-p-slider").value);
-    const maxO2 = parseFloat(q("#opt-o2-slider").value);
-    const maxD0 = parseFloat(q("#opt-d0-slider").value);
-    const objective = q("#opt-objective").value;
+  function evaluateFallback(maxP, maxO2, maxD0, objective) {
+    if (!proposalsData) return null;
+    const fuelData = proposalsData?.fuels?.[activeFuel];
+    const pool = fuelData?.all_candidates || fuelData?.top_candidates || proposalsData?.all_candidates || proposalsData?.top_candidates || [];
+    if (!pool.length) return null;
+    const allEvaluated = pool.map(c => {
+      const p = c.pressure_atm ?? 1.0;
+      const o2 = c.o2_mole_fraction ?? 0.21;
+      const d0 = c.droplet_diameter_mm ?? 2.0;
+      const isFeasible = p <= maxP + 0.001 && o2 <= maxO2 + 0.001 && d0 <= maxD0 + 0.001;
+      return { ...c, isFeasible };
+    });
+    const feasibleCandidates = allEvaluated.filter(c => c.isFeasible);
+    const bestFeasible = feasibleCandidates[0] || null;
+    const globallyOptimal = allEvaluated[0] || null;
+    return { allEvaluated, feasibleCandidates, bestFeasible, globallyOptimal };
+  }
 
-    const evalResult = facility3d?.updateConstraints({
+  function applyFilters() {
+    const maxP = parseFloat(q("#opt-p-slider")?.value || "2.5");
+    const maxO2 = parseFloat(q("#opt-o2-slider")?.value || "0.42");
+    const maxD0 = parseFloat(q("#opt-d0-slider")?.value || "2.5");
+    const objective = q("#opt-objective")?.value || "MAX_INFORMATION_GAIN";
+
+    let evalResult = facility3d?.updateConstraints({
       maxP,
       maxO2,
       maxD0,
       objective,
       gravity: activeGravity,
     });
+    if (!evalResult) {
+      evalResult = evaluateFallback(maxP, maxO2, maxD0, objective);
+    }
     lastEvaluation = evalResult;
 
     if (evalResult) {
@@ -1307,15 +1328,17 @@ export function mountOptimizer(root, data, { go }) {
   // ==========================================
   // INITIALIZATION & EVENT LISTENERS
   // ==========================================
+  const baseUrl = import.meta.env.BASE_URL || "/";
   Promise.all([
-    fetch("/data/design_proposals.json").then((r) => r.json()).catch(() => ({ top_candidates: [] })),
-    fetch("/data/evidence_ledger.json").then((r) => r.json()).catch(() => []),
-    fetch("/data/active_learning_benchmark.json").then((r) => r.json()).catch(() => null)
+    fetch(`${baseUrl}data/design_proposals.json`).then((r) => r.json()).catch(() => ({ top_candidates: [] })),
+    fetch(`${baseUrl}data/evidence_ledger.json`).then((r) => r.json()).catch(() => []),
+    fetch(`${baseUrl}data/active_learning_benchmark.json`).then((r) => r.json()).catch(() => null)
   ]).then(([proposals, ledger, benchmark]) => {
     proposalsData = proposals;
     evidenceLedger = Array.isArray(ledger) ? ledger : [];
     initFacility();
     populateBenchmarkUI(benchmark || proposals?.benchmark_comparison?.sequential_simulation);
+    applyFilters();
     renderGPRSurface();
   });
 
@@ -1503,11 +1526,17 @@ export function mountOptimizer(root, data, { go }) {
 
   return {
     enter: () => {
+      if (!facility3d && proposalsData) {
+        initFacility();
+      } else if (facility3d) {
+        facility3d.resume?.();
+        facility3d.resize?.();
+      }
+      applyFilters();
       renderGPRSurface();
     },
     leave: () => {
-      window.removeEventListener("resize", onResize);
-      facility3d?.dispose();
+      facility3d?.pause?.();
     }
   };
 }

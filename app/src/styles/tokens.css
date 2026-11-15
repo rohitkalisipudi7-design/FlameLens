@@ -10,6 +10,7 @@
   --claude-canvas: #faf9f5;
   --claude-surface-soft: #f5f0e8;
   --claude-surface-card: #efe9de;
+  --claude-surface: #efe9de;
   --claude-surface-cream-strong: #e8e0d2;
   --claude-surface-dark: #181715;
   --claude-surface-dark-elevated: #252320;
@@ -131,6 +132,7 @@
   --claude-canvas: #0f1013;
   --claude-surface-soft: #15171d;
   --claude-surface-card: #1c1f26;
+  --claude-surface: #1c1f26;
   --claude-surface-cream-strong: #242832;
   --claude-surface-dark: #090a0d;
   --claude-surface-dark-elevated: #15171d;

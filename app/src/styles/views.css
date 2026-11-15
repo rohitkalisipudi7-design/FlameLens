@@ -982,7 +982,7 @@
   width: 100%;
   font: 16px var(--f-body);
   color: var(--claude-ink, #141413);
-  background: var(--claude-surface, #ffffff);
+  background: var(--claude-surface-card, #efe9de);
   border: 1px solid var(--claude-hairline, #e6dfd8);
   border-radius: 999px;
   padding: 14px 20px 14px 46px;
@@ -2163,13 +2163,19 @@ ul.tight {
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background: var(--claude-surface, #ffffff);
+  background: var(--claude-surface-card, #efe9de);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--claude-hairline, #e6dfd8);
   border-radius: var(--r-md);
   overflow-x: auto;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px rgba(20, 20, 19, 0.06);
+}
+
+[data-theme="dark"] .cmp-workflow-nav {
+  background: var(--claude-surface-card, #1c1f26);
+  border-color: var(--claude-hairline, #2b2e38);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 .cmp-nav-item {

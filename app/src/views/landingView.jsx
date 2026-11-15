@@ -59,6 +59,7 @@ export function mountLanding(root, arg2, arg3) {
 
   return {
     enter() {
+      window.dispatchEvent(new CustomEvent("flamelens-route-change", { detail: { view: "landing" } }));
       if (!reactRoot) {
         reactRoot = createRoot(root);
       }
@@ -71,7 +72,8 @@ export function mountLanding(root, arg2, arg3) {
       );
     },
     leave() {
-      // Keep root mounted for instant transitions
+      // Pause heavy WebGL canvas when viewing other tabs
+      window.dispatchEvent(new CustomEvent("flamelens-route-change", { detail: { view: "other" } }));
     },
   };
 }

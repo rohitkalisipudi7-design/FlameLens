@@ -791,6 +791,17 @@ function createRenderer(canvas: HTMLCanvasElement, fallback: HTMLDivElement, ini
   });
   resizeObserver.observe(canvas); intersection.observe(canvas);
   listen(window, "resize", resize);
+  listen(window, "flamelens-route-change", ((e: CustomEvent) => {
+    if (e.detail?.view && e.detail.view !== "landing") {
+      visible = false;
+      state.holding = false;
+      stop();
+    } else {
+      visible = true;
+      state.last = 0;
+      requestFrame();
+    }
+  }) as EventListener);
   try { setup(); resize(); loadTexture(); } catch { fail(); }
   return {
     update(next: Options) {

@@ -446,8 +446,8 @@ export async function createFlame3D(box, { getSim, getG, getEnv = () => "iss", o
     env?.update({ dt: reducedMotion ? 0 : dt, time, g, inFront: F.inFront, inside: F.inside, dist: R, fresh: S.fresh, still: reducedMotion });
     S.fresh = false;
 
-    // ---- Interactive points of interest projected to screen coordinates (free view only) ----
-    if (onSpots) {
+    // ---- Interactive points of interest projected to screen coordinates (free view only, throttled to 30Hz) ----
+    if (onSpots && S.tick % 2 === 0) {
       const list = [];
       const put = (id, p) => {
         v3.copy(p).project(camera);
@@ -561,9 +561,10 @@ export async function createFlame3D(box, { getSim, getG, getEnv = () => "iss", o
       renderer.render(scene, fcam);
       F.feed = { x, y, w, h, pxmm };
     }
-    // Instrument telemetry monitors: all three feeds rendered in miniature
-    for (const m of monitors) {
-      if (!m.rect) continue;
+    // Instrument telemetry monitors: rendered round-robin to preserve 60 FPS performance
+    const activeMonitors = monitors.filter((m) => !!m.rect);
+    if (activeMonitors.length > 0) {
+      const m = activeMonitors[S.tick % activeMonitors.length];
       const { x, y, w, h } = m.rect;
       present(m.id, false);
       aim(m.id, h, 1);
