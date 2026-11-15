@@ -56,8 +56,8 @@ export function drawCoverage(svg, rows) {
   O2.forEach(([o0], oi) => {
     if (oi % 2 === 0) text(a, m.l + oi * cw + cw / 2, H - m.b + 18, `${Math.round(o0 * 100)}%`, { "text-anchor": "middle" });
   });
-  text(a, (m.l + W - m.r) / 2, H - 6, "Oxygen (mole fraction)", { "text-anchor": "middle" });
-  text(a, 4, m.t - 12, "Pressure (atm)");
+  text(a, (m.l + W - m.r) / 2, H - 6, "Oxygen (mole fraction)", { "text-anchor": "middle", class: "chart-label-x" });
+  text(a, 4, m.t - 12, "Pressure (atm)", { class: "chart-label-y" });
 
   const px = (o2) => m.l + ((o2 - 0.1) / 0.02) * cw;
   const py = (p) => {

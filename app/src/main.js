@@ -13,18 +13,11 @@ import { createControls } from "./ui/controls.js";
 import { mountPanorama } from "./views/panorama.js";
 import { mountExplorer } from "./views/explorer.js";
 import { mountExperiments } from "./views/experiments.js";
-import { mountSimulator } from "./views/simulator.js";
 import { mountFlame3D } from "./views/flame3dView.js";
 import { mountCompare } from "./views/compare.js";
 import { mountEvidenceLedger } from "./views/evidenceLedgerView.js";
 import { mountOptimizer } from "./views/optimizerView.js";
-import { mountSafetyEnvelope } from "./views/safetyEnvelopeView.js";
-import { mountVideoIntelligence } from "./views/videoIntelligenceView.js";
-import { mountContradiction } from "./views/contradictionView.js";
-import { mountEvidence } from "./views/evidence.js";
-import { mountPipeline } from "./views/pipeline.js";
-import { mountRag } from "./views/rag.js";
-import { mountParts, mountStack } from "./views/parts.js";
+import { mountParts } from "./views/parts.js";
 
 const TABS = [
   { id: "panorama", label: "Overview" },
@@ -32,21 +25,23 @@ const TABS = [
   { id: "data", label: "Evidence Explorer" },
   { id: "optimizer", label: "Design Optimizer" },
   { id: "compare", label: "Comparison Studio" },
-  { id: "simulator", label: "Simulator" },
-  { id: "evidence", label: "Evidence Center" },
-  { id: "envelope", label: "Safety Envelope" },
-  { id: "video-lab", label: "Video Intelligence" },
-  { id: "contradiction", label: "Contradiction Detector" },
-  { id: "assistant", label: "Research AI" },
 ];
 
 const ALIASES = {
   overview: "panorama",
   portada: "panorama",
   inicio: "panorama",
+  lab: "lab3d",
+  llama3d: "lab3d",
+  "simulator/3d": "lab3d",
+  "simulador/3d": "lab3d",
+  simulator: "lab3d",
+  simulador: "lab3d",
+  "simulator/2d": "lab3d",
   datos: "data",
-  simulador: "simulator",
-  asistente: "assistant",
+  evidence: "data/ledger",
+  evidencia: "data/ledger",
+  ledger: "data/ledger",
   explorador: "data/charts",
   experimentos: "data/runs",
   "data/graficas": "data/charts",
@@ -55,21 +50,22 @@ const ALIASES = {
   "datos/ensayos": "data/runs",
   charts: "data/charts",
   runs: "data/runs",
+  optimizer: "optimizer",
+  optimizador: "optimizer",
+  compare: "compare",
   comparador: "compare",
   comparacion: "compare",
-  "simulator/2d": "simulator",
-  "simulator/3d": "lab3d",
-  "simulador/2d": "simulator",
-  "simulador/3d": "lab3d",
-  llama3d: "lab3d",
-  evidencia: "evidence",
-  ledger: "evidence",
-  rag: "assistant",
-  ai: "assistant",
-  optimizador: "optimizer",
-  safety: "envelope",
-  video: "video-lab",
-  contradiccion: "contradiction",
+  assistant: "data/ledger",
+  asistente: "data/ledger",
+  rag: "data/ledger",
+  ai: "data/ledger",
+  // Graceful redirects for removed secondary modules:
+  envelope: "panorama",
+  safety: "panorama",
+  "video-lab": "panorama",
+  video: "panorama",
+  contradiction: "panorama",
+  contradiccion: "panorama",
 };
 
 async function boot() {
@@ -88,23 +84,14 @@ async function boot() {
   const go = (id, sub) => router.go(id, sub);
   const views = {
     panorama: mountPanorama($("#view-panorama"), data, { go }),
+    lab3d: mountFlame3D($("#view-lab3d"), data, shared),
     data: mountParts($("#view-data"), "data", [
+      { id: "ledger", label: "Evidence Ledger (1,872)", mount: (el) => mountEvidenceLedger(el, data, { go }) },
       { id: "charts", label: "FLEX Charts", mount: (el) => mountExplorer(el, data, { open: (uid) => go("data", `runs/${uid}`) }) },
       { id: "runs", label: "Run by Run", mount: (el) => mountExperiments(el, data, { go, gravity }) },
-    ], { label: "Data View" }),
-    compare: mountCompare($("#view-compare"), data, { go }),
-    simulator: mountSimulator($("#view-simulator"), data, shared),
-    lab3d: mountFlame3D($("#view-lab3d"), data, shared),
-    assistant: mountStack($("#view-assistant"), [
-      (el) => mountRag(el, data, shared),
-      (el) => mountEvidence(el, data),
-    ]),
-    evidence: mountEvidenceLedger($("#view-evidence"), data, { go }),
+    ], { label: "Evidence Explorer Subviews" }),
     optimizer: mountOptimizer($("#view-optimizer"), data, { go }),
-    envelope: mountSafetyEnvelope($("#view-envelope"), data, { go }),
-    "video-lab": mountVideoIntelligence($("#view-video-lab"), data, { go }),
-    contradiction: mountContradiction($("#view-contradiction"), data, { go }),
-    pipeline: mountPipeline($("#view-pipeline")),
+    compare: mountCompare($("#view-compare"), data, { go }),
   };
   router = createRouter({ tabs: TABS, views, initial: "panorama", aliases: ALIASES });
   $(".brand").addEventListener("click", (e) => { e.preventDefault(); go("panorama"); });

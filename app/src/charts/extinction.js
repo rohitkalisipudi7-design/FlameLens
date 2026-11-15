@@ -25,7 +25,7 @@ export function drawExtinction(svg, rows, fuels) {
     text(a, m.l - 8, y(v) + 4, `${Math.round(v * 100)}%`, { "text-anchor": "end" });
   });
   el("line", { x1: m.l, x2: W - m.r, y1: H - m.b, y2: H - m.b }, a);
-  text(a, (m.l + W - m.r) / 2, H - 6, "Ambient Oxygen", { "text-anchor": "middle" });
+  text(a, (m.l + W - m.r) / 2, H - 6, "Ambient Oxygen", { "text-anchor": "middle", class: "chart-label-x" });
 
   const inner = Math.min(24, (bw - 18) / fuels.length);
   BINS.forEach(([lo, hi, lab], i) => {
@@ -38,7 +38,7 @@ export function drawExtinction(svg, rows, fuels) {
       const p = n / s.length;
       const bx = cx - (fuels.length * inner + (fuels.length - 1) * 2) / 2 + j * (inner + 2);
       const bar = el("path", { d: barPath(bx, y(0), inner, y(p)), fill: cssVar(FUEL[f].color) }, svg);
-      text(svg, bx + inner / 2, y(p) - 6, s.length, { "text-anchor": "middle", "font-size": 10 });
+      text(svg, bx + inner / 2, y(p) - 6, s.length, { "text-anchor": "middle", "font-size": 10, class: "bar-count" });
       const hit = el("rect", { x: bx - 2, y: m.t, width: inner + 4, height: y(0) - m.t, fill: "transparent" }, svg);
       bindTip(hit, () => `<b>${FUEL[f].es}</b> · O₂ ${lab}<br>${Math.round(p * 100)}% extinction<br>${n} of ${s.length} runs`, {
         on: () => bar.setAttribute("opacity", 0.75),

@@ -478,8 +478,15 @@ class ExperimentalDesignOptimizer:
         elif is_subatmospheric or is_hyperoxic:
             status = "GROUND_FACILITY_ONLY"
             facility = "NASA Glenn Zero Gravity Research Facility (Drop Tower)"
-            source = "NASA TM-107000 (Drop Tower Evacuated Chamber Protocol)"
-            rationale = "Sub-atmospheric pressure or elevated oxidizer requires specialized ground drop tower evacuation."
+            source = "NASA TM-107000 (Drop Tower Ground Protocol)"
+            reasons = []
+            if is_subatmospheric:
+                reasons.append(f"Sub-atmospheric pressure ({pressure_atm:.2f} atm < 0.70 atm CIR lower envelope requires ground chamber evacuation)")
+            elif pressure_atm > 1.00:
+                reasons.append(f"Elevated chamber pressure ({pressure_atm:.2f} atm)")
+            if is_hyperoxic:
+                reasons.append(f"elevated oxidizer ({oxygen_fraction*100:.1f}% O₂ > 30% CIR flight safety limit per NASA/TP-2017-219299)")
+            rationale = f"Restricted to ground facility: {'; '.join(reasons)}."
         else:
             status = "FEASIBLE_SPACEFLIGHT"
             facility = "ISS Combustion Integrated Rack (CIR) / MDCA insert"

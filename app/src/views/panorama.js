@@ -33,8 +33,8 @@ export function mountPanorama(root, data, { go }) {
       <div class="hero-content">
         <div class="hero-badge">
           <span class="hero-badge-pulse" aria-hidden="true"></span>
-          <span class="hero-badge-text">NASA Space Apps 2026 · Challenge #08</span>
-          <span class="hero-badge-challenge">Flame in Freefall</span>
+          <span class="hero-badge-text">FlameLens AI · Microgravity Combustion Research & Experimental Design Platform</span>
+          <span class="hero-badge-challenge">NASA Space Apps 2026</span>
         </div>
         
         <h1 class="hero-title">
@@ -42,21 +42,25 @@ export function mountPanorama(root, data, { go }) {
         </h1>
         
         <p class="hero-lede">
-          Explore microgravity flame behavior, connect experimental evidence, and investigate data-informed directions for future combustion research.
+          An evidence-grounded research platform that integrates historical combustion experiments, scientific visualization, experimental comparison and uncertainty-aware experiment design to support microgravity combustion research.
         </p>
 
         <div class="hero-actions">
           <button type="button" class="btn primary hero-btn hero-btn-primary" data-go="lab3d">
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8" cy="8" r="6"/><circle cx="8" cy="8" r="2"/></svg>
-            Explore the Laboratory
+            Explore 3D Lab
           </button>
           <button type="button" class="btn secondary hero-btn" data-go="data">
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
-            Explore the Evidence
+            Evidence Explorer
           </button>
           <button type="button" class="btn secondary hero-btn" data-go="optimizer">
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v12M2 8h12"/></svg>
             Design Optimizer
+          </button>
+          <button type="button" class="btn secondary hero-btn" data-go="compare">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 2v12M12 2v12M1 6h6M9 10h6"/></svg>
+            Comparison Studio
           </button>
         </div>
       </div>
@@ -168,13 +172,13 @@ export function mountPanorama(root, data, { go }) {
     </section>
 
     <!-- =====================================================================
-         SECTION 3: PLATFORM CAPABILITIES (3 Core Features)
+         SECTION 3: PLATFORM CAPABILITIES (4 Core Capabilities)
          ===================================================================== -->
     <section class="capabilities-section" aria-label="Platform Capabilities">
       <div class="section-head">
         <div class="eyebrow">Platform Capabilities</div>
-        <h2>Core Scientific Research Instruments</h2>
-        <p class="lede">Three unified investigation environments bridging raw flight telemetry, physics-grounded 3D visualization, and Bayesian active experimental design.</p>
+        <h2>Four Core Scientific Capabilities</h2>
+        <p class="lede">A focused scientific research workspace integrating historical combustion flight data, 3D chamber simulation, Bayesian experimental design, and parametric comparison.</p>
       </div>
 
       <div class="capabilities-grid">
@@ -208,11 +212,11 @@ export function mountPanorama(root, data, { go }) {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16l4-7 4 5 5-9"/></svg>
             </div>
             <h3>Evidence Explorer</h3>
-            <p>Inspect 2,009 microgravity test runs and 277 indexed NTRS scientific papers across 24 flight investigations. Complete provenance with source-line pointers, quality verification, and zero silent data alterations.</p>
+            <p>Inspect 1,872 verified flight records across NASA spaceflight campaigns (FLEX, BASS, CFI, ACME). Complete provenance with source-line pointers, quality validation, and zero silent data alterations.</p>
           </div>
           <div class="card-footer">
             <span class="btn secondary small card-action-btn">Explore Records →</span>
-            <span class="card-meta">2,009 Validated Runs</span>
+            <span class="card-meta">1,872 Validated Runs</span>
           </div>
         </article>
 
@@ -232,6 +236,25 @@ export function mountPanorama(root, data, { go }) {
           <div class="card-footer">
             <span class="btn secondary small card-action-btn">Optimize Design →</span>
             <span class="card-meta">GPR Matérn 5/2 Surrogate</span>
+          </div>
+        </article>
+
+        <!-- 4. Comparison Studio -->
+        <article class="panel capability-card card-compare" data-go="compare">
+          <div class="card-top">
+            <span class="card-badge cyan">Parametric & Kinetic Analytics</span>
+            <span class="card-status-dot cyan"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-icon-wrap cyan">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 2v20M20 2v20M2 7h6M16 17h6M7 4l4 3-4 3M17 14l-4 3 4 3"/></svg>
+            </div>
+            <h3>Comparison Studio</h3>
+            <p>Side-by-side scientific comparison of NASA spaceflight and terrestrial trials. Evaluates methodological compatibility, calculates quantitative parameter deltas, and analyzes analytical d²-law burning kinetics.</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn secondary small card-action-btn">Compare Trials →</span>
+            <span class="card-meta">10 Aligned Condition Rows</span>
           </div>
         </article>
       </div>

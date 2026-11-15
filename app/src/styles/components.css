@@ -201,11 +201,11 @@ textarea:focus {
 }
 
 .chip-label {
-  font: 600 10.5px/1 var(--f-mono);
-  letter-spacing: 0.1em;
+  font: 600 11px/1 var(--f-mono);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-text-subtle);
-  margin-right: 4px;
+  color: var(--color-text-muted);
+  margin-right: 6px;
 }
 
 .chip {
@@ -335,4 +335,129 @@ textarea:focus {
 
 .disclosure-note.flame {
   border-left: 3px solid var(--color-flame);
+}
+
+/* ==========================================================================
+   Scientific Charts & Data Visualizations (SVG & D3/Canvas)
+   High-contrast legible presentation in space-research dark theme
+   ========================================================================== */
+
+.chart {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+/* Universal SVG text: default to high-contrast legible muted silver */
+.chart text {
+  fill: var(--color-text-muted, #AAB7C6);
+  font-family: var(--f-mono, ui-monospace, monospace);
+  font-size: 11px;
+  user-select: none;
+}
+
+/* Axis tick numbers */
+.chart .axis text {
+  fill: var(--color-text-muted, #AAB7C6);
+  font-family: var(--f-mono, ui-monospace, monospace);
+  font-size: 11.5px;
+}
+
+/* Primary Axis Labels (e.g., "Burning Rate K (mm²/s)", "Ambient O₂ Mole Fraction") */
+.chart text.chart-label-x,
+.chart text.chart-label-y,
+.chart .axis text.chart-label-x,
+.chart .axis text.chart-label-y {
+  fill: var(--color-text, #F5F7FA) !important;
+  font-family: var(--f-display, var(--f-body, sans-serif)) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+}
+
+/* Reference annotations & guides (e.g. "air · 20.9%") */
+.chart text.ref-line-label {
+  fill: var(--color-cyan, #20B9E8) !important;
+  font-family: var(--f-mono, ui-monospace, monospace) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+/* Extinction / Bar chart count numbers above bars */
+.chart text.bar-count {
+  fill: var(--color-text, #F5F7FA) !important;
+  font-family: var(--f-mono, ui-monospace, monospace) !important;
+  font-weight: 600 !important;
+  font-size: 10.5px !important;
+}
+
+/* Axis lines and ticks */
+.chart .axis line {
+  stroke: var(--color-border-strong, #3A5068);
+  stroke-width: 1.25;
+}
+
+/* Background grid lines */
+.chart .grid line {
+  stroke: rgba(255, 255, 255, 0.09);
+  stroke-dasharray: 3 4;
+}
+
+/* Atmospheric Reference Line */
+.chart line.ref-line {
+  stroke: var(--color-cyan, #20B9E8);
+  stroke-dasharray: 4 4;
+  opacity: 0.75;
+}
+
+/* Chart Legend */
+.legend {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text, #F5F7FA);
+  align-items: center;
+  padding: 6px 0;
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted, #AAB7C6);
+}
+
+.legend span svg {
+  flex: none;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.4));
+}
+
+/* Floating Tooltips */
+.tip {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  max-width: 320px;
+  padding: 10px 14px;
+  border-radius: var(--r-sm, 8px);
+  border: 1px solid var(--color-border-strong, #3A5068);
+  background: rgba(16, 28, 43, 0.96);
+  backdrop-filter: var(--glass);
+  -webkit-backdrop-filter: var(--glass);
+  color: var(--color-text, #F5F7FA);
+  font: 12px/1.55 var(--f-mono, ui-monospace, monospace);
+  box-shadow: 0 16px 36px -8px rgba(3, 8, 17, 0.95);
+}
+
+.tip b {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.tip .dim {
+  color: var(--color-text-subtle, #77889B);
+  font-size: 11px;
 }

@@ -12,15 +12,15 @@ export function marker(g, cx, cy, r, color, end, surface) {
 
 export function legendHTML(withShapes = true) {
   const fuels = ["Methanol", "Heptane"]
-    .map((f) => `<span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${cssVar(FUEL[f].color)}"/></svg>${FUEL[f].es}</span>`)
+    .map((f) => `<span class="legend-item"><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${cssVar(FUEL[f].color)}"/></svg>${FUEL[f].es}</span>`)
     .join("");
   if (!withShapes) return fuels;
-  const c = cssVar("--ink-2");
+  const c = cssVar("--color-text-muted") || "#AAB7C6";
   return (
     fuels +
-    `<span style="margin-left:12px"><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${c}"/></svg>Complete</span>` +
-    `<span><svg width="12" height="12"><circle cx="6" cy="6" r="4.5" fill="none" stroke="${c}" stroke-width="2"/></svg>Extinction</span>` +
-    `<span><svg width="12" height="14"><path d="M1,7 L6,1 L11,7 L6,13Z" fill="${c}"/></svg>Disruption</span>`
+    `<span class="legend-item" style="margin-left:14px"><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${c}"/></svg>Complete</span>` +
+    `<span class="legend-item"><svg width="12" height="12"><circle cx="6" cy="6" r="4.5" fill="none" stroke="${c}" stroke-width="2"/></svg>Extinction</span>` +
+    `<span class="legend-item"><svg width="12" height="14"><path d="M1,7 L6,1 L11,7 L6,13Z" fill="${c}"/></svg>Disruption</span>`
   );
 }
 
@@ -41,8 +41,8 @@ export function drawScatter(svg, rows, onPick) {
     xf: (v) => v.toFixed(2),
     yf: (v) => v.toFixed(1),
   });
-  el("line", { x1: x(0.209), x2: x(0.209), y1: m.t, y2: H - m.b, stroke: cssVar("--line-2"), "stroke-dasharray": "4 4" }, svg);
-  text(svg, x(0.209) + 6, m.t + 10, "air · 20.9%");
+  el("line", { x1: x(0.209), x2: x(0.209), y1: m.t, y2: H - m.b, stroke: cssVar("--color-cyan") || "#20B9E8", "stroke-dasharray": "4 4", class: "ref-line", opacity: "0.75" }, svg);
+  text(svg, x(0.209) + 6, m.t + 10, "air · 20.9%", { class: "ref-line-label" });
 
   const surface = cssVar("--panel-solid");
   const g = el("g", {}, svg);

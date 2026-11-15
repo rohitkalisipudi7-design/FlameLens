@@ -37,9 +37,9 @@
     "expected_info_gain": 0.9917,
     "expected_information_gain_bits": 0.9917,
     "feasibility_status": "GROUND_FACILITY_ONLY",
-    "feasibility_source": "NASA TM-107000 (Drop Tower Evacuated Chamber Protocol)",
+    "feasibility_source": "NASA TM-107000 (Drop Tower Ground Protocol)",
     "recommended_facility": "NASA Glenn Zero Gravity Research Facility (Drop Tower)",
-    "scientific_rationale": "Sub-atmospheric pressure or elevated oxidizer requires specialized ground drop tower evacuation.",
+    "scientific_rationale": "Restricted to ground facility: Elevated chamber pressure (2.50 atm); elevated oxidizer (40.0% O\u2082 > 30% CIR flight safety limit per NASA/TP-2017-219299).",
     "model_status": "CALIBRATED",
     "model_metadata": {
       "model_id": "GPR-MATERN52-N_HEPTANE",

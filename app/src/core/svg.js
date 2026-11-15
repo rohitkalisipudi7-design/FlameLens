@@ -39,8 +39,8 @@ export function axes(svg, { m, W, H, x, y, xt, yt, xLabel, yLabel, xf = (v) => v
   });
   xt.forEach((v) => text(a, x(v), H - m.b + 18, xf(v), { "text-anchor": "middle" }));
   el("line", { x1: m.l, x2: W - m.r, y1: H - m.b, y2: H - m.b }, a);
-  text(a, (m.l + W - m.r) / 2, H - 6, xLabel, { "text-anchor": "middle" });
-  text(a, m.l - 36 > 0 ? m.l - 36 : 4, m.t - 12, yLabel, { "text-anchor": "start" });
+  text(a, (m.l + W - m.r) / 2, H - 6, xLabel, { "text-anchor": "middle", class: "chart-label-x" });
+  text(a, m.l - 36 > 0 ? m.l - 36 : 4, m.t - 12, yLabel, { "text-anchor": "start", class: "chart-label-y" });
 }
 
 /** Barra con esquinas superiores redondeadas anclada a la base. */

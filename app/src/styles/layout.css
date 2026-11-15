@@ -150,6 +150,7 @@ main {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 24px;
+  padding-top: 6px;
 }
 
 .view > *,
@@ -161,7 +162,7 @@ main {
 
 .subnav {
   display: flex;
-  margin-bottom: -6px;
+  margin-bottom: 6px;
 }
 
 .subnav .seg {

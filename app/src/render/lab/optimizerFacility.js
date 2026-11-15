@@ -163,14 +163,22 @@ export function evaluateCandidateFeasibility(data, userConstraints, activeGravit
     };
   }
 
-  // 4. Ground Facility Only check (Sub-atmospheric <0.70 atm or Elevated O2 >30%)
-  if (p < DOCUMENTED_HARDWARE_LIMITS.ISS_CIR_MDCA.min_pressure_atm || o2 > DOCUMENTED_HARDWARE_LIMITS.ISS_CIR_MDCA.max_o2_mole_fraction) {
+  // 4. Ground Facility Only check (Sub-atmospheric <0.70 atm, Hyperbaric >3.00 atm, or Elevated O2 >30%)
+  const minCirP = DOCUMENTED_HARDWARE_LIMITS.ISS_CIR_MDCA.min_pressure_atm; // 0.70
+  const maxCirP = DOCUMENTED_HARDWARE_LIMITS.ISS_CIR_MDCA.max_pressure_atm; // 3.00
+  const maxCirO2 = DOCUMENTED_HARDWARE_LIMITS.ISS_CIR_MDCA.max_o2_mole_fraction; // 0.30
+
+  if (p < minCirP || p > maxCirP || o2 > maxCirO2) {
     const reasons = [];
-    if (p < DOCUMENTED_HARDWARE_LIMITS.ISS_CIR_MDCA.min_pressure_atm) {
-      reasons.push(`Sub-atmospheric pressure (${p.toFixed(2)} atm < 0.70 atm requires chamber evacuation)`);
+    if (p < minCirP) {
+      reasons.push(`Sub-atmospheric pressure (${p.toFixed(2)} atm < ${minCirP.toFixed(2)} atm requires ground chamber evacuation)`);
+    } else if (p > maxCirP) {
+      reasons.push(`Elevated hyperbaric pressure (${p.toFixed(2)} atm > ${maxCirP.toFixed(2)} atm exceeds CIR flight limit)`);
+    } else if (p > 1.0) {
+      reasons.push(`Elevated chamber pressure (${p.toFixed(2)} atm)`);
     }
-    if (o2 > DOCUMENTED_HARDWARE_LIMITS.ISS_CIR_MDCA.max_o2_mole_fraction) {
-      reasons.push(`Elevated oxidizer (${(o2 * 100).toFixed(0)}% > 30% exceeds standard CIR insert flight safety qualification)`);
+    if (o2 > maxCirO2) {
+      reasons.push(`Elevated oxidizer (${(o2 * 100).toFixed(0)}% > ${(maxCirO2 * 100).toFixed(0)}% exceeds standard CIR insert flight safety qualification per NASA/TP-2017-219299)`);
     }
     return {
       feasibilityStatus: "GROUND_FACILITY_ONLY",
@@ -178,6 +186,7 @@ export function evaluateCandidateFeasibility(data, userConstraints, activeGravit
       violations: [],
       recommendedFacility: "NASA Glenn Zero Gravity Research Facility (Drop Tower)",
       feasibilitySource: `NASA TM-107000: ${reasons.join("; ")}`,
+      scientificRationale: `Restricted to ground facility: ${reasons.join("; ")}.`,
     };
   }
 
@@ -359,7 +368,7 @@ export function createOptimizerFacility(container, { proposalsData, historicalRe
 
   addGasBottle(-75, 60, 120, 22, 0x0284c7, "O2 MANIFOLD", true);
   addGasBottle(75, 60, 130, 24, 0x334155, "N2 DILUENT", false);
-  addGasBottle(0, 10, 80, 16, 0xbe123c, "HEPTANE FUEL", false);
+  addGasBottle(0, 10, 80, 16, 0xbe123c, "LIQUID FUEL", false);
 
   // Dynamic Oxidizer Line (Glow intensifies with O2 fraction)
   const o2LineGroup = pipe([V(-75, 45, 0), V(-75, 0, 0), V(-45, -70, 0)], 4, M.manifoldCyan, gantryGroup);
@@ -691,9 +700,11 @@ export function createOptimizerFacility(container, { proposalsData, historicalRe
         ...data,
         isFeasible: feasibility.isFeasible,
         feasibility_status: feasibility.feasibilityStatus,
+        feasibilityStatus: feasibility.feasibilityStatus,
         recommended_facility: feasibility.recommendedFacility,
         feasibility_source: feasibility.feasibilitySource,
         violations: feasibility.violations,
+        scientific_rationale: feasibility.scientificRationale || data.scientific_rationale,
         effectiveScore: score,
         activeGravity: gravity,
       };
@@ -867,11 +878,11 @@ export function createOptimizerFacility(container, { proposalsData, historicalRe
   ro.observe(container);
 
   let animId = null;
-  const clock = new THREE.Clock();
+  const animStartTime = performance.now();
 
   function animate() {
     animId = requestAnimationFrame(animate);
-    const t = clock.getElapsedTime();
+    const t = (performance.now() - animStartTime) * 0.001;
 
     camera.position.lerp(targetCameraPos, 0.06);
     currentLookAt.lerp(targetLookAt, 0.06);

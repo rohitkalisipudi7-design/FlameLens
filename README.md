@@ -13,22 +13,30 @@
 
 ## 🔬 Core Capabilities & Architecture
 
-### 1. Interactive 3D Combustion Laboratory (Three.js & WebGL)
-* **Combustion Integrated Rack (CIR) & MDCA Chamber Simulation**: High-fidelity procedural 3D chamber environment replicating the Multi-user Droplet Combustion Apparatus on the International Space Station.
-* **Continuous Partial-Gravity Visualizer**: Dynamically scales buoyant deformation, soot trail advection, and droplet flattening across microgravity ($0g$), Lunar gravity ($0.16g$), Martian gravity ($0.38g$), and Earth gravity ($1.0g$).
+FlameLens AI is organized around **four primary scientific research instruments**:
+
+### 1. Interactive 3D Combustion Laboratory (`#lab3d`)
+* **Combustion Integrated Rack (CIR) & MDCA Chamber Simulation**: Procedural 3D chamber environment replicating the Multi-user Droplet Combustion Apparatus aboard the International Space Station.
+* **Continuous Partial-Gravity Visualizer**: Dynamically scales buoyant convection, soot trail advection, and droplet flattening across microgravity ($0g$), Lunar gravity ($0.16g$), Martian gravity ($0.38g$), and Earth gravity ($1.0g$).
 * **Droplet Burning Lifecycle**: Simulates the classical $d^2$-law ($d^2(t) = d_0^2 - K \cdot t$), ignition transients, hot flame envelope, cool flame transition, and radiative extinction.
 * **Instrument Camera Emulation**: Switch between MDCA 4:3 Color Camera, HiBMS Backlit Shadowgraphy, and Low-Light Ultraviolet (LLUV) OH* chemiluminescence modes.
 
-### 2. Machine Learning & Bayesian Active Learning
+### 2. Evidence Explorer (`#data`)
+* **NASA Evidence Ledger**: Unifies 1,872 multi-regime flight runs across 24 NASA PSI campaigns with immutable source pointers (`source_file`, `source_line`) and official DOIs.
+* **Scientific Quality Gate**: Transparent multi-factor validation scores evaluating sensor calibration, signal-to-noise ratio, and peer verification without silent data alterations.
+* **FLEX Charts & Run-by-Run Inspection**: Interactive multi-parameter scatter and regression plots correlating initial droplet diameter, oxygen fraction, pressure, and burn duration.
+
+### 3. Design Optimizer (`#optimizer`)
 * **Fuel-Stratified Gaussian Process Regression (GPR)**: Evaluates burning rate constants ($K$) and extinction diameter ratios ($d_{\text{ext}} / d_0$) with anisotropic RBF and observational WhiteKernel noise estimation.
 * **Bayesian Expected Information Gain (EIG) Optimizer**: Pointwise Mutual-Information active learning engine targeting high-epistemic-uncertainty candidates to maximize scientific discovery in microgravity:
   $$\text{EIG}(\mathbf{x}) = \frac{1}{2} \log\left(1 + \frac{\sigma_{\text{pred}}^2(\mathbf{x})}{\sigma_n^2}\right)$$
-* **Spaceflight Safety Envelopes**: Built-in boundary verification ensuring proposed experimental runs adhere to spacecraft safety limits ($P \le 3.0\text{ atm}$, $X_{\text{O}_2} \le 0.30$) and NASA-STD-6001B flammability standards.
+* **Feasibility Boundary Verification**: Evaluates hardware operating boundaries across flight and ground facilities (ISS CIR/MDCA, Ground Drop Tower, Exploration Atmospheres) to enforce physical constraints.
 
-### 3. Evidence Ledger & Contradiction Detection
-* **NASA Evidence Ledger**: Unifies 261 droplet points, 1,872 multi-regime test runs, and 24 NASA PSI flight campaigns with immutable source pointers (`source_file`, `source_line`) and official DOIs.
-* **Scientific Contradiction Engine**: Identifies physical anomalies, rate discrepancies, and conflicting claims across disparate publications and flight missions.
-* **Combustion Video Intelligence**: Calibrated optical tracking of droplet diameter evolution, soot incandescence, and flame extinction dynamics from high-speed spaceflight footage.
+### 4. Experiment Comparison Studio (`#compare`)
+* **Six-Stage Sequential Research Workflow**: Seamlessly navigates Study Definition, Comparability Assessment, Experimental Conditions (Priority Visualization), Measured Outcomes, Uncertainty & Quality, and Research Findings.
+* **Priority Conditions Visualization**: 10 aligned comparison rows with proportional composition meters for $X_{\text{O}_2}$, $X_{\text{CO}_2}$, $X_{\text{He}}$, ambient pressure gauges, and gravitational indicators.
+* **Interactive $d^2(t)$ vs. $t$ Trajectory Plot**: Analytical regression curves with interactive hover crosshairs, terminal extinction markers, and empirical trajectory disclosures.
+* **Reproducible Data Package Export**: One-click JSON and CSV export of complete parameter comparison matrices.
 
 ---
 

@@ -10,6 +10,7 @@ __pycache__/
 
 # Local verification artifacts and screenshots
 screenshots/
+scratch/
 
 # Miscellaneous and system files
 *.zip
