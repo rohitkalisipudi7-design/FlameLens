@@ -111,7 +111,13 @@ export function mountPanorama(root, data, { go }) {
 
           <!-- Conceptual Integrity Disclosure -->
           <div class="dual-disclosure">
-            <span class="disc-icon">ℹ️</span>
+            <span class="disc-icon" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+            </span>
             <span>Conceptual Comparison · Contrasts buoyancy-driven upward convection (1g) with spherical diffusion symmetry (0g). Qualitative visualization, not an uncalibrated CFD simulation output.</span>
           </div>
         </div>
@@ -124,7 +130,11 @@ export function mountPanorama(root, data, { go }) {
     <section class="research-snapshot" aria-label="Research Snapshot">
       <div class="section-head-compact">
         <div class="eyebrow-accent">
-          <span class="eyebrow-icon">📊</span>
+          <span class="eyebrow-icon" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 20V10M12 20V4M6 20v-6"/>
+            </svg>
+          </span>
           <span>RESEARCH SNAPSHOT · REPOSITORY SCALE</span>
         </div>
         <div class="snapshot-header-row">
@@ -308,7 +318,7 @@ export function mountPanorama(root, data, { go }) {
           <h3>Every Experiment Speaks Its Own Dialect</h3>
           <p class="problem-desc">${tables} experimental tables, each with inconsistent columns, units, and headers. Values like "~21.5" or "20 cm/s" were stored as unparsed text strings.</p>
           <div class="problem-evidence">
-            <span class="evidence-icon">🔍</span>
+            <svg class="evidence-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <div>
               <b>Underlying Evidence:</b> During download: ~2,600 broken links on NASA's PSI server; we recovered 978 by extracting archive files.
             </div>
@@ -330,7 +340,7 @@ export function mountPanorama(root, data, { go }) {
           <h3>Findings Locked in PDFs and Raw Video</h3>
           <p class="problem-desc">${(videoShare * 100).toFixed(2)}% of PSI storage consists of video and raw image arrays. Key conclusions remain locked in ${data.totals.ntrs} unstructured technical documents.</p>
           <div class="problem-evidence">
-            <span class="evidence-icon">🔍</span>
+            <svg class="evidence-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <div>
               <b>Underlying Evidence:</b> ${tb.toFixed(1)} TB published vs ${got.toFixed(1)} GB of tabular data and documents.
             </div>
@@ -352,7 +362,7 @@ export function mountPanorama(root, data, { go }) {
           <h3>No Empirical Data Where It Matters Most</h3>
           <p class="problem-desc">Exploration architectures propose 0.57 atm and 34% O₂. In FLEX, only ${lowP} test runs ever dropped below 0.65 atm; the minimum measured pressure is ${fmt(minP)} atm.</p>
           <div class="problem-evidence">
-            <span class="evidence-icon">🔍</span>
+            <svg class="evidence-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <div>
               <b>Underlying Evidence:</b> Test runs with ≥30% O₂ and &lt;0.9 atm: ${hiO2lowP}.
             </div>
@@ -374,7 +384,7 @@ export function mountPanorama(root, data, { go }) {
           <h3>Certified in 1g, Flown in 0g</h3>
           <p class="problem-desc">Standard material screening (NASA-STD-6001, Test 1) burns samples vertically upward on Earth. In orbit, flames behave completely differently, often defying 1g assumptions.</p>
           <div class="problem-evidence">
-            <span class="evidence-icon">🔍</span>
+            <svg class="evidence-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <div>
               <b>Underlying Evidence:</b> Saffire-II: silicone burned completely in 1g tests on Earth, but self-extinguished in orbit; SIBAL fabric propagated 29 cm in space.
             </div>

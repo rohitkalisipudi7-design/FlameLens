@@ -90,7 +90,11 @@ export function mountFlame3D(root, data, { controls, scenario, gravity }) {
     <section class="lab-scenarios-panel" aria-label="Experiment Scenario Presets">
       <div class="scenarios-panel-bar">
         <div class="scenarios-bar-title font-mono">
-          <span class="scenarios-icon">🧪</span>
+          <span class="scenarios-icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 2v7.31L4.69 18.25A2 2 0 0 0 6.36 21h11.28a2 2 0 0 0 1.67-2.75L14 9.31V2"/>
+            </svg>
+          </span>
           FLIGHT & MISSION SCENARIO PRESETS
         </div>
         <div class="scenarios-bar-sub font-mono">SELECT A PRESET TO INSTANTLY INITIALIZE CHAMBER CONDITIONS</div>
@@ -422,7 +426,13 @@ export function mountFlame3D(root, data, { controls, scenario, gravity }) {
         <!-- Scientific Disclosure & Provenance Qualifications -->
         <div class="evidence-disclosure-box">
           <div class="disc-header font-mono">
-            <span class="disc-icon">ℹ️</span>
+            <span class="disc-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+            </span>
             SCIENTIFIC DISCLOSURE & RIGOR
           </div>
           <p class="disc-text">

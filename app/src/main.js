@@ -10,6 +10,7 @@ import { createRouter } from "./core/router.js";
 import { createSpace } from "./background/space.js";
 import { conditions, gravity, scenario, initScenario } from "./state.js";
 import { createControls } from "./ui/controls.js";
+import { mountLanding } from "./views/landingView.jsx";
 import { mountPanorama } from "./views/panorama.js";
 import { mountExplorer } from "./views/explorer.js";
 import { mountExperiments } from "./views/experiments.js";
@@ -20,7 +21,7 @@ import { mountOptimizer } from "./views/optimizerView.js";
 import { mountParts } from "./views/parts.js";
 
 const TABS = [
-  { id: "panorama", label: "Overview" },
+  { id: "landing", label: "Home" },
   { id: "lab3d", label: "3D Laboratory" },
   { id: "data", label: "Evidence Explorer" },
   { id: "optimizer", label: "Design Optimizer" },
@@ -28,9 +29,13 @@ const TABS = [
 ];
 
 const ALIASES = {
-  overview: "panorama",
-  portada: "panorama",
-  inicio: "panorama",
+  home: "landing",
+  landing: "landing",
+  portal: "landing",
+  overview: "landing",
+  panorama: "landing",
+  portada: "landing",
+  inicio: "landing",
   lab: "lab3d",
   llama3d: "lab3d",
   "simulator/3d": "lab3d",
@@ -60,15 +65,31 @@ const ALIASES = {
   rag: "data/ledger",
   ai: "data/ledger",
   // Graceful redirects for removed secondary modules:
-  envelope: "panorama",
-  safety: "panorama",
-  "video-lab": "panorama",
-  video: "panorama",
-  contradiction: "panorama",
-  contradiccion: "panorama",
+  envelope: "landing",
+  safety: "landing",
+  "video-lab": "landing",
+  video: "landing",
+  contradiction: "landing",
+  contradiccion: "landing",
 };
 
+function initTheme() {
+  const saved = localStorage.getItem("flamelens-theme") || "light";
+  document.documentElement.setAttribute("data-theme", saved);
+  const btn = document.getElementById("theme-toggle-btn");
+  if (btn) {
+    btn.onclick = () => {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("flamelens-theme", next);
+      window.dispatchEvent(new CustomEvent("theme-change", { detail: { theme: next } }));
+    };
+  }
+}
+
 async function boot() {
+  initTheme();
   createSpace($("#space"));
 
   const res = await fetch(`${import.meta.env.BASE_URL}data/dashboard.json`);
@@ -83,6 +104,7 @@ async function boot() {
   let router;
   const go = (id, sub) => router.go(id, sub);
   const views = {
+    landing: mountLanding($("#view-landing"), data, { go }),
     panorama: mountPanorama($("#view-panorama"), data, { go }),
     lab3d: mountFlame3D($("#view-lab3d"), data, shared),
     data: mountParts($("#view-data"), "data", [
@@ -93,8 +115,8 @@ async function boot() {
     optimizer: mountOptimizer($("#view-optimizer"), data, { go }),
     compare: mountCompare($("#view-compare"), data, { go }),
   };
-  router = createRouter({ tabs: TABS, views, initial: "panorama", aliases: ALIASES });
-  $(".brand").addEventListener("click", (e) => { e.preventDefault(); go("panorama"); });
+  router = createRouter({ tabs: TABS, views, initial: "landing", aliases: ALIASES });
+  $(".brand").addEventListener("click", (e) => { e.preventDefault(); go("landing"); });
 }
 
 boot().catch((err) => {

@@ -391,13 +391,13 @@ export function mountCompare(root, data, { go }) {
     let badgeIcon = "✓";
     if (comp.classification === "NOT DIRECTLY COMPARABLE") {
       badgeClass = "crit";
-      badgeIcon = "🛑";
+      badgeIcon = "✕";
     } else if (comp.classification === "LIMITED COMPARABILITY") {
       badgeClass = "diff";
-      badgeIcon = "⚡";
+      badgeIcon = "▲";
     } else if (comp.classification === "COMPARABLE WITH QUALIFICATIONS") {
       badgeClass = "warn";
-      badgeIcon = "⚠️";
+      badgeIcon = "!";
     }
 
     // Matching items HTML
@@ -555,7 +555,7 @@ export function mountCompare(root, data, { go }) {
           <div class="row-cell cell-indicator">
             <span class="cmp-cat-title">02 · PHYSICAL FAMILY</span>
             <span class="cmp-status-badge ${match ? 'match' : 'mismatch'}">
-              ${match ? `✓ REGIME MATCH (${esc(expA.family)})` : '⚠️ FAMILY MISMATCH'}
+              ${match ? `✓ REGIME MATCH (${esc(expA.family)})` : '✕ FAMILY MISMATCH'}
             </span>
           </div>
           <div class="row-cell cell-b">
@@ -602,14 +602,14 @@ export function mountCompare(root, data, { go }) {
       } else if (is1gA && is1gB) {
         statusHtml = '<span class="cmp-status-badge match">✓ 1g TERRESTRIAL PARITY</span>';
       } else {
-        statusHtml = '<span class="cmp-status-badge crit">⚡ BUOYANT REGIME SHIFT (0g vs 1g)</span>';
+        statusHtml = '<span class="cmp-status-badge crit">▲ BUOYANT REGIME SHIFT (0g vs 1g)</span>';
       }
 
       rows.push(`
         <div class="cmp-row" title="Gravitational regime: 0g eliminates buoyancy (Gr ≈ 0) for spherical flames; 1g drives natural convection">
           <div class="row-cell cell-a">
             <div class="gravity-badge grav-a">
-              <span>${is0gA ? '🛰️' : '🌍'}</span>
+              <span class="font-mono" style="font-weight:700;">${is0gA ? '0g' : '1g'}</span>
               <span>${esc(expA.gravity)}</span>
             </div>
             <span class="cell-sub">${is0gA ? 'Diffusion-dominated · Spherical flame' : 'Buoyancy-dominated · Elongated plume'}</span>
@@ -620,7 +620,7 @@ export function mountCompare(root, data, { go }) {
           </div>
           <div class="row-cell cell-b">
             <div class="gravity-badge grav-b">
-              <span>${is0gB ? '🛰️' : '🌍'}</span>
+              <span class="font-mono" style="font-weight:700;">${is0gB ? '0g' : '1g'}</span>
               <span>${esc(expB.gravity)}</span>
             </div>
             <span class="cell-sub">${is0gB ? 'Diffusion-dominated · Spherical flame' : 'Buoyancy-dominated · Elongated plume'}</span>
@@ -819,7 +819,7 @@ export function mountCompare(root, data, { go }) {
         </div>
 
         <div class="cmp-viz-footnote font-mono">
-          <span class="footnote-icon">ℹ️</span>
+          <svg class="footnote-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           <span>Matching environmental parameters indicate aligned boundary conditions, not identical kinetic outcomes. Missing fields are preserved as unavailable (N/A) rather than assumed zero. Visual meters represent relative fractions within physical domain bounds.</span>
         </div>
       </div>
@@ -1059,7 +1059,7 @@ export function mountCompare(root, data, { go }) {
           </div>
 
           <div class="cmp-d2-disclosure font-mono">
-            <span class="disc-icon">ℹ️</span>
+            <svg class="disc-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
             <span><b>Scientific Trajectory Disclosure:</b> Analytical d²-Law Trajectory (d²(t) = d₀² − K·t). Frame-by-frame digitizer time-series are modeled from empirical flight constants (d₀, K, t_b, d_ext) recorded in the NASA Physical Sciences Informatics (PSI) repository.</span>
           </div>
         </div>

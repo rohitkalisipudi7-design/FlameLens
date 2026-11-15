@@ -111,7 +111,7 @@ export function mountOptimizer(root, data, { go }) {
 
         <!-- Prominent Primary Action Button -->
         <button type="button" class="btn primary opt-btn-generate" id="opt-btn-recalculate">
-          ⚡ Apply Constraints & Rank Candidates
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:-1px;margin-right:6px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Apply Constraints & Rank Candidates
         </button>
 
         <div class="note" style="font-size:0.78rem; line-height:1.45; margin-top:2px; opacity:0.85;">
@@ -289,12 +289,12 @@ export function mountOptimizer(root, data, { go }) {
       </div>
 
       <!-- Model Reliability Notice Banner -->
-      <div id="opt-gpr-reliability-banner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:rgba(15,23,42,0.7); border:1px solid var(--line-2); border-radius:6px; padding:8px 12px; margin-bottom:12px; font-size:11.5px;">
+      <div id="opt-gpr-reliability-banner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:var(--claude-surface-soft, #f5f0e8); border:1px solid var(--claude-hairline, #e6dfd8); border-radius:6px; padding:10px 14px; margin-bottom:12px; font-size:12px;">
         <div style="display:flex; align-items:center; gap:8px;">
-          <span id="opt-gpr-reliability-badge" class="status st-warn" style="font-size:10.5px; border-color:#f59e0b; background:rgba(245,158,11,0.15); color:#fde68a;">
-            ⚠️ Limited Point-Prediction Reliability (R² = 0.077)
+          <span id="opt-gpr-reliability-badge" class="status st-warn" style="font-size:10.5px; border-color:var(--claude-accent-amber, #e8a55a); background:rgba(232,165,90,0.15); color:var(--claude-primary-active, #a9583e);">
+            ! Limited Point-Prediction Reliability (R² = 0.077)
           </span>
-          <span id="opt-gpr-disclosure-text" style="color:var(--ink-2); line-height:1.4;">
+          <span id="opt-gpr-disclosure-text" style="color:var(--claude-body, #3d3d3a); line-height:1.4;">
             Exploratory decision support: high flight measurement scatter (σ_n = 0.102 mm²/s) limits point accuracy. Use epistemic uncertainty bounds (±2σ) for experimental targeting.
           </span>
         </div>
@@ -307,23 +307,23 @@ export function mountOptimizer(root, data, { go }) {
 
       <div class="opt-gpr-legend">
         <span class="opt-gpr-legend-item">
-          <span style="width:18px; height:3px; background:var(--color-cyan, #20b9e8); display:inline-block; border-radius:2px;"></span>
+          <span style="width:18px; height:3px; background:var(--claude-accent-teal, #5db8a6); display:inline-block; border-radius:2px;"></span>
           <span style="color:var(--ink);">GPR Mean Prediction (μ)</span>
         </span>
         <span class="opt-gpr-legend-item">
-          <span style="width:18px; height:10px; background:rgba(56,189,248,0.25); border:1px dashed rgba(56,189,248,0.6); display:inline-block; border-radius:2px;"></span>
+          <span style="width:18px; height:10px; background:rgba(93,184,166,0.2); border:1px solid var(--claude-accent-teal, #5db8a6); display:inline-block; border-radius:2px;"></span>
           <span style="color:var(--ink);">Epistemic Uncertainty Ribbon (±2σ · 95% CI)</span>
         </span>
         <span class="opt-gpr-legend-item">
-          <span style="width:8px; height:8px; border-radius:50%; background:#0284c7; border:1px solid #38bdf8; display:inline-block;"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:#2d7a6b; border:1px solid #5db8a6; display:inline-block;"></span>
           <span style="color:var(--ink);">NASA PSI Empirical Flight Trials</span>
         </span>
         <span class="opt-gpr-legend-item">
-          <span style="width:10px; height:10px; transform:rotate(45deg); background:var(--color-flame, #ff791f); border:1px solid #fff; display:inline-block;"></span>
+          <span style="width:10px; height:10px; transform:rotate(45deg); background:var(--color-flame, #cc785c); border:1px solid #fff; display:inline-block;"></span>
           <span style="color:var(--ink);">Selected Proposal Target</span>
         </span>
         <span class="opt-gpr-legend-item">
-          <span style="width:14px; height:0; border-top:2px dashed #f59e0b; display:inline-block;"></span>
+          <span style="width:14px; height:0; border-top:2px solid #e8a55a; display:inline-block;"></span>
           <span style="color:var(--ink);">ISS CIR Hardware Floor (0.70 atm)</span>
         </span>
       </div>
@@ -378,7 +378,7 @@ export function mountOptimizer(root, data, { go }) {
         <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
           <span class="dim small" id="opt-benchmark-pill" style="color:var(--good); font-weight:600; font-family:var(--f-mono); font-size:11px;">Active Learning: Evaluating...</span>
           <button type="button" class="btn small" id="opt-btn-toggle-benchmark" style="padding:4px 10px; font-size:11px;">
-            📊 View 4-Strategy Comparison
+            View 4-Strategy Comparison
           </button>
         </div>
       </div>
@@ -408,7 +408,7 @@ export function mountOptimizer(root, data, { go }) {
       </div>
 
       <!-- Expandable Honest Benchmark Drawer -->
-      <div id="opt-benchmark-drawer" style="display:none; background:rgba(15,23,42,0.6); border:1px solid var(--line-2); border-radius:6px; padding:12px; margin-bottom:8px; font-size:12px; line-height:1.45;">
+      <div id="opt-benchmark-drawer" style="display:none; background:var(--claude-surface-soft, #f5f0e8); border:1px solid var(--claude-hairline, #e6dfd8); border-radius:6px; padding:12px; margin-bottom:8px; font-size:12px; line-height:1.45;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <strong style="color:var(--ink);">Sequential Active Learning Strategy Evaluation (NASA PSI-69 FLEX Spaceflight Cohort)</strong>
           <span style="font-size:10.5px; color:var(--ink-2); font-family:var(--f-mono);">15 Initial Train · 10 Sequential Steps · 30 Held-out Test</span>
@@ -462,8 +462,8 @@ export function mountOptimizer(root, data, { go }) {
     if (fuel === "n-heptane") {
       if (reliabilityEl) {
         reliabilityEl.className = "status st-warn";
-        reliabilityEl.style.cssText = "font-size:10.5px; border-color:#f59e0b; background:rgba(245,158,11,0.15); color:#fde68a;";
-        reliabilityEl.textContent = "⚠️ Limited Point-Prediction Reliability (R² = 0.077)";
+        reliabilityEl.style.cssText = "font-size:10.5px; border-color:var(--claude-accent-amber, #e8a55a); background:rgba(232,165,90,0.15); color:var(--claude-primary-active, #a9583e);";
+        reliabilityEl.textContent = "! Limited Point-Prediction Reliability (R² = 0.077)";
       }
       if (disclosureEl) {
         disclosureEl.innerHTML = `<strong>Exploratory Decision Support:</strong> High aleatoric flight noise (σ_n = 0.102 mm²/s from filament suspension losses and video pixel variance) limits point-prediction accuracy. The model identifies high-uncertainty parameter regions for targeted exploration rather than reliable single-point predictions.`;
@@ -1221,7 +1221,7 @@ export function mountOptimizer(root, data, { go }) {
       toggleBtn.onclick = () => {
         const isHidden = drawer.style.display === "none";
         drawer.style.display = isHidden ? "block" : "none";
-        toggleBtn.textContent = isHidden ? "✕ Close Comparison" : "📊 View 4-Strategy Comparison";
+        toggleBtn.textContent = isHidden ? "✕ Close Comparison" : "View 4-Strategy Comparison";
       };
     }
 

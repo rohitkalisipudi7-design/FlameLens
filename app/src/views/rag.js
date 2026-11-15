@@ -46,7 +46,7 @@ export function mountRag(root, data, shared) {
 
         <div class="rag-messages" id="rag-messages">
           <div class="rag-msg bot">
-            <div class="rag-avatar">🚀</div>
+            <div class="rag-avatar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 15 2 2 4-4"/><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></div>
             <div class="rag-bubble">
               <p><b>Hello! I am the FlameLens AI scientific research assistant.</b></p>
               <p>I have direct access to 277 NTRS technical reports and NASA OLAP Cube flight telemetry. Feel free to ask about materials, flight investigations (Saffire, FLEX, BASS), spherical flame physics, or spacecraft certification standards.</p>
@@ -66,7 +66,7 @@ export function mountRag(root, data, shared) {
       <!-- Right Column: Document & Telemetry Dashboard -->
       <div class="panel rag-dashboard-col" id="rag-dashboard">
         <div class="rag-dash-empty">
-          <div style="font-size: 2.2rem; margin-bottom: 8px;">📊</div>
+          <div style="margin-bottom: 12px; color: var(--claude-primary, #cc785c);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
           <h3>Experiments & Evidence Dashboard</h3>
           <p class="dim small">Submit a query so the IVF index can retrieve corresponding NTRS documents and display the <b>supporting text chunk</b> along with the <b>OLAP Cube telemetry table</b> and quantitative metrics.</p>
         </div>
@@ -106,8 +106,10 @@ export function mountRag(root, data, shared) {
     const isUser = role === "user";
     const div = document.createElement("div");
     div.className = `rag-msg ${isUser ? "user" : "bot"}`;
+    const userAvatar = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+    const botAvatar = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 15 2 2 4-4"/><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
     div.innerHTML = `
-      <div class="rag-avatar">${isUser ? "👨‍🚀" : "🚀"}</div>
+      <div class="rag-avatar">${isUser ? userAvatar : botAvatar}</div>
       <div class="rag-bubble">
         ${isUser ? `<p>${esc(text)}</p>` : formatBotText(text)}
       </div>
@@ -138,7 +140,7 @@ export function mountRag(root, data, shared) {
     if (!dashState.papers || dashState.papers.length === 0) {
       dashContainer.innerHTML = `
         <div class="rag-dash-empty">
-          <div style="font-size: 2.2rem; margin-bottom: 8px;">📊</div>
+          <div style="margin-bottom: 12px; color: var(--claude-primary, #cc785c);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
           <h3>Experiments & Evidence Dashboard</h3>
           <p class="dim small">Submit a query so the IVF index can retrieve corresponding NTRS documents and display the <b>supporting text chunk</b> along with the <b>OLAP Cube telemetry table</b> and quantitative metrics.</p>
         </div>
@@ -168,7 +170,7 @@ export function mountRag(root, data, shared) {
           <div class="rag-doc-nav">
             ${dashState.papers.map((p, idx) => `
               <button type="button" class="rag-doc-tab ${idx === dashState.activeIdx ? 'active' : ''}" data-doc-idx="${idx}">
-                <span>📄 Doc #${idx + 1}: ${esc(p.titulo_paper ? p.titulo_paper.substring(0, 26) + '...' : 'Paper')}</span>
+                <span>Doc #${idx + 1}: ${esc(p.titulo_paper ? p.titulo_paper.substring(0, 26) + '...' : 'Paper')}</span>
                 <span class="tab-score">${(p.score * 100).toFixed(1)}%</span>
               </button>
             `).join("")}
@@ -193,26 +195,27 @@ export function mountRag(root, data, shared) {
         <!-- 1. Text chunk evidence -->
         <div class="rag-chunk-card">
           <div class="rag-chunk-header">
-            <div style="font-weight:600; color:#fff; font-size:0.83rem; display:flex; align-items:center; gap:6px;">
-              <span>📜 Retrieved Text Evidence (Titan Embedding Chunk):</span>
+            <div style="font-weight:600; color:var(--claude-ink, #141413); font-size:0.83rem; display:flex; align-items:center; gap:6px;">
+              <span>Retrieved Text Evidence (Titan Embedding Chunk):</span>
             </div>
             <div style="display:flex; gap:6px;">
-              <span class="rag-chunk-badge">⚡ Similarity: ${(paper.score * 100).toFixed(1)}%</span>
-              <span class="rag-chunk-badge" style="color:var(--flame-b); background:rgba(255,107,53,0.15);">Voronoi #${paper.cluster_id ?? 0}</span>
+              <span class="rag-chunk-badge">Similarity: ${(paper.score * 100).toFixed(1)}%</span>
+              <span class="rag-chunk-badge" style="color:var(--flame-b); background:rgba(204,120,92,0.15);">Voronoi #${paper.cluster_id ?? 0}</span>
             </div>
           </div>
           <div class="rag-chunk-body">
             "${esc(paper.chunk_text || 'Technical summary and passage indexed in IVF vector database.')}"
           </div>
-          <div style="font-size:10px; color:var(--muted); margin-top:6px;">
-            ℹ️ Exact text chunk from which vector embeddings were generated to cross-reference this paper with the OLAP Cube via <code>titulo_paper</code>.
+          <div style="font-size:11px; color:var(--muted); margin-top:6px; display:flex; align-items:center; gap:5px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>Exact text chunk from which vector embeddings were generated to cross-reference this paper with the OLAP Cube via <code>titulo_paper</code>.</span>
           </div>
         </div>
 
         <!-- 2. Consolidated paper metrics (OLAP Cube) -->
         <div style="margin-bottom: 14px;">
           <div style="font-size:0.82rem; font-weight:600; color:var(--ink); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">
-            📊 Consolidated Paper Metrics (OLAP Cube):
+            Consolidated Paper Metrics (OLAP Cube):
           </div>
           <div class="rag-kpi-grid">
             <div class="rag-kpi-box">
@@ -246,7 +249,7 @@ export function mountRag(root, data, shared) {
         <div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:8px;">
             <div style="font-size:0.82rem; font-weight:600; color:var(--ink); text-transform:uppercase; letter-spacing:0.05em;">
-              🔬 Microgravity Test Runs from this Paper (OLAP Cube)
+              Microgravity Test Runs from this Paper (OLAP Cube)
             </div>
             <span style="font-size:11px; color:var(--muted);">
               Showing ${filteredExps.length} of ${experiments.length} runs
@@ -294,7 +297,7 @@ export function mountRag(root, data, shared) {
                       <span class="exp-paper-title">${esc(exp.titulo_paper || paper.titulo_paper)}</span>
                       <span class="exp-paper-meta">
                         <a href="${esc(exp.url_pdf_ntrs || paper.url || `https://ntrs.nasa.gov/citations/${exp.id_paper || paper.id_paper}`)}" target="_blank" class="exp-paper-link">
-                          📄 NTRS ID: ${esc(exp.id_paper || paper.id_paper)}
+                          NTRS ID: ${esc(exp.id_paper || paper.id_paper)}
                         </a> · ${esc(exp.autores ? exp.autores.split(';')[0] : (paper.authors ? paper.authors.split(';')[0] : ''))}
                       </span>
                     </td>
@@ -350,7 +353,7 @@ export function mountRag(root, data, shared) {
     loadDiv.className = "rag-msg bot";
     loadDiv.id = "rag-loading-bubble";
     loadDiv.innerHTML = `
-      <div class="rag-avatar">🚀</div>
+      <div class="rag-avatar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 15 2 2 4-4"/><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></div>
       <div class="rag-bubble dim" style="display:flex; align-items:center; gap:8px;">
         <span class="spinner"></span>
         <span>Probing IVF index, cross-referencing OLAP Cube, and querying Gemma 3 (12B)...</span>

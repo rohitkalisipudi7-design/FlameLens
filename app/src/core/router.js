@@ -39,6 +39,7 @@ export function createRouter({ tabs, views, initial, aliases = {} }) {
     if (current) views[current].leave?.();
     const prev = current;
     current = id;
+    document.body.classList.toggle("is-landing", id === "landing");
     $$(".tab", nav).forEach((b) => b.setAttribute("aria-selected", b.dataset.tab === id));
     $$(".view").forEach((v) => {
       const on = v.id === `view-${id}`;

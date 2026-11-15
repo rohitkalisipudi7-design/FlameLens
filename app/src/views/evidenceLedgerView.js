@@ -399,7 +399,7 @@ export function mountEvidenceLedger(root, data, { go }) {
             <div style="font-size:0.88rem; margin:2px 0 6px 0;"><b>Facility:</b> ${esc(exp.facility)}</div>
             <div class="dim small">${esc(exp.expected_outcome)}</div>
             <div style="margin-top:8px; font-size:11px; color:var(--muted); font-style:italic;">
-              ⚠️ ${esc(exp.disclaimer)}
+              <span style="font-weight:700; color:var(--claude-primary, #cc785c); margin-right:4px;">!</span> ${esc(exp.disclaimer)}
             </div>
           </div>
         </div>

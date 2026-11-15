@@ -1399,28 +1399,28 @@
 }
 
 .evidence-disclosure-box {
-  padding: 10px 12px;
-  background: rgba(3, 8, 17, 0.55);
-  border: 1px dashed var(--color-border);
+  padding: 12px 14px;
+  background: var(--claude-surface-soft, #f5f0e8);
+  border: 1px solid var(--claude-hairline, #e6dfd8);
   border-radius: var(--r-md);
 }
 
 .disc-header {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
+  gap: 8px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--color-cyan);
+  color: var(--claude-primary, #cc785c);
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .disc-text {
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--claude-body, #3d3d3a);
   margin: 0;
 }
 
