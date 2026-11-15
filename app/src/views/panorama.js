@@ -1,7 +1,6 @@
 import { esc, fmt } from "../core/dom.js";
 import { flexFindings } from "../model/findings.js";
-import { simulate } from "../model/flame.js";
-import { createFlame2D } from "../render/flame2d.js";
+import { createDualFlameHero } from "../render/dualFlameHero.js";
 
 const HERO_Q = { fuel: "Heptane", o2: 0.21, P: 1.0, co2: 0, he: 0, d0: 3.0 };
 
@@ -63,15 +62,55 @@ export function mountPanorama(root, data, { go }) {
       </div>
 
       <div class="hero-visual">
-        <figure class="porthole-wrap">
-          <div class="porthole" id="porthole">
-            <canvas id="hero-flame" aria-label="Interactive 2D simulation of a heptane droplet burning in microgravity"></canvas>
+        <div class="dual-flame-card" id="hero-dual-flame" aria-label="Conceptual Comparison: 1g Earth Gravity vs 0g Microgravity Combustion">
+          <div class="dual-flame-header">
+            <span class="dual-flame-tag">GRAVITY REGIME COMPARISON</span>
+            <span class="dual-flame-legend">
+              <span class="legend-dot dot-1g"></span> 1g Convection
+              <span class="legend-sep">⟷</span>
+              <span class="legend-dot dot-0g"></span> 0g Diffusion
+            </span>
           </div>
-          <figcaption class="porthole-caption">
-            3 mm <b>heptane</b> droplet · 21% O₂ · 1 atm
-            <span class="porthole-sub">Prediction derived from empirical FLEX flight data</span>
-          </figcaption>
-        </figure>
+
+          <div class="dual-flame-stage">
+            <!-- LEFT: Earth Gravity (1g) -->
+            <div class="flame-pane pane-1g">
+              <div class="flame-viewport viewport-1g">
+                <canvas id="flame-1g-canvas" aria-label="Earth gravity 1g flame showing buoyancy-driven upward plume"></canvas>
+              </div>
+              <div class="flame-label-block">
+                <div class="flame-title flame-title-1g">EARTH GRAVITY — 1g</div>
+                <div class="flame-desc">Buoyancy-Driven Convection</div>
+                <div class="flame-sub">Elongated upward thermal plume</div>
+              </div>
+            </div>
+
+            <!-- Central Comparison Divider -->
+            <div class="dual-divider" aria-hidden="true">
+              <span class="divider-line"></span>
+              <span class="divider-badge font-mono">VS</span>
+              <span class="divider-line"></span>
+            </div>
+
+            <!-- RIGHT: Microgravity (0g) -->
+            <div class="flame-pane pane-0g">
+              <div class="flame-viewport viewport-0g">
+                <canvas id="flame-0g-canvas" aria-label="Microgravity 0g flame showing spherically symmetric blue combustion zone"></canvas>
+              </div>
+              <div class="flame-label-block">
+                <div class="flame-title flame-title-0g">MICROGRAVITY — 0g</div>
+                <div class="flame-desc">Diffusion-Dominated Regime</div>
+                <div class="flame-sub">Spherically symmetric blue shell</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conceptual Integrity Disclosure -->
+          <div class="dual-disclosure">
+            <span class="disc-icon">ℹ️</span>
+            <span>Conceptual Comparison · Contrasts buoyancy-driven upward convection (1g) with spherical diffusion symmetry (0g). Qualitative visualization, not an uncalibrated CFD simulation output.</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -348,19 +387,6 @@ export function mountPanorama(root, data, { go }) {
   // Attach navigation listeners
   root.querySelectorAll("[data-go]").forEach((b) => b.addEventListener("click", () => go(b.dataset.go)));
 
-  // Porthole capsule screws
-  const port = root.querySelector("#porthole");
-  if (port) {
-    for (let i = 0; i < 12; i++) {
-      const a = (i / 12) * Math.PI * 2;
-      const bolt = document.createElement("span");
-      bolt.className = "bolt";
-      bolt.style.left = `calc(50% + ${Math.cos(a) * 46.2}% - 4.5px)`;
-      bolt.style.top = `calc(50% + ${Math.sin(a) * 46.2}% - 4.5px)`;
-      port.appendChild(bolt);
-    }
-  }
-
   // Populate 24 Campaigns Table
   const maxGb = Math.max(...inv.map((r) => r.gb));
   const invTable = root.querySelector("#inv");
@@ -379,20 +405,30 @@ export function mountPanorama(root, data, { go }) {
         </tr>`).join("") + "</tbody>";
   }
 
-  // Droplet combustion simulation in porthole
-  const heroSim = simulate(flex, HERO_Q);
-  const flame = createFlame2D(root.querySelector("#hero-flame"), { getSim: () => heroSim, scale: 1.5, bg: "#020309", frac: 0.45 });
+  // Dual flame gravity comparison visualization (1g vs 0g)
+  const canvas1g = root.querySelector("#flame-1g-canvas");
+  const canvas0g = root.querySelector("#flame-0g-canvas");
+  const dualHero = createDualFlameHero(canvas1g, canvas0g);
+
+  const heroContainer = root.querySelector("#hero-dual-flame");
   let active = false;
   let visible = true;
   const io = new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
-    if (active && visible) flame.start();
-    else flame.stop();
+    dualHero.setVisible(visible);
+    if (active && visible) dualHero.start();
+    else dualHero.stop();
   });
-  if (port) io.observe(port);
+  if (heroContainer) io.observe(heroContainer);
 
   return {
-    enter() { active = true; if (visible) flame.start(); },
-    leave() { active = false; flame.stop(); },
+    enter() {
+      active = true;
+      if (visible) dualHero.start();
+    },
+    leave() {
+      active = false;
+      dualHero.stop();
+    },
   };
 }

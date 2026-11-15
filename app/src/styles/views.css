@@ -92,74 +92,197 @@
   justify-content: center;
 }
 
-/* Porthole capsule window displaying 2D burning droplet simulation */
-.porthole-wrap {
-  display: grid;
-  justify-items: center;
+/* ---------- DUAL FLAME GRAVITY COMPARISON (1g vs 0g) ---------- */
+.dual-flame-card {
+  width: 100%;
+  max-width: 580px;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-feature);
+  padding: 16px 18px 14px;
+  box-shadow: 0 16px 40px -16px rgba(3, 8, 17, 0.9), 0 0 40px -20px rgba(32, 185, 232, 0.15);
+  display: flex;
+  flex-direction: column;
   gap: 12px;
-  margin: 0;
 }
 
-.porthole {
-  position: relative;
-  width: min(100%, 340px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  padding: 16px;
-  background:
-    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.16), transparent 42%),
-    conic-gradient(from 210deg, #2b3246, #636e8a, #262c3d, #4c5670, #1d2231, #56617c, #2b3246);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 24px 64px -20px rgba(0, 0, 0, 0.9),
-    0 0 80px -20px rgba(32, 185, 232, 0.25);
+.dual-flame-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+  font: 600 10.5px/1 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.porthole::after {
-  content: "";
-  position: absolute;
-  inset: 16px;
-  border-radius: 50%;
-  pointer-events: none;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), transparent 30%, transparent 70%, rgba(32, 185, 232, 0.08));
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), inset 0 0 36px rgba(0, 0, 0, 0.85);
-}
-
-.porthole canvas {
-  position: absolute;
-  inset: 16px;
-  width: calc(100% - 32px);
-  height: calc(100% - 32px);
-  border-radius: 50%;
-  display: block;
-  background: #020309;
-}
-
-.bolt {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #d7dcea, #59627a 60%, #232838);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
-}
-
-.porthole-caption {
-  font: 12px/1.5 var(--f-mono);
-  color: var(--color-text-muted);
-  text-align: center;
-}
-
-.porthole-caption b {
-  color: var(--color-text);
-  font-weight: 600;
-}
-
-.porthole-sub {
-  display: block;
-  font-size: 11px;
+.dual-flame-tag {
   color: var(--color-text-subtle);
+}
+
+.dual-flame-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-muted);
+}
+
+.legend-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-1g {
+  background: var(--color-flame);
+  box-shadow: 0 0 6px var(--color-flame);
+}
+
+.dot-0g {
+  background: var(--color-cyan);
+  box-shadow: 0 0 6px var(--color-cyan);
+}
+
+.legend-sep {
+  color: var(--color-text-subtle);
+  font-size: 11px;
+}
+
+.dual-flame-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.flame-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.flame-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.05;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #02060f;
+  border: 1px solid var(--color-border);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.85);
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.flame-viewport canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.viewport-1g {
+  border-color: rgba(255, 121, 31, 0.35);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.85), 0 0 20px -8px rgba(255, 121, 31, 0.25);
+}
+
+.viewport-0g {
+  border-color: rgba(32, 185, 232, 0.35);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.85), 0 0 20px -8px rgba(32, 185, 232, 0.25);
+}
+
+.viewport-1g:hover {
+  border-color: var(--color-flame);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.9), 0 0 24px -4px rgba(255, 121, 31, 0.45);
+  transform: translateY(-1px);
+}
+
+.viewport-0g:hover {
+  border-color: var(--color-cyan);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.9), 0 0 24px -4px rgba(32, 185, 232, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Central Comparison Divider */
+.dual-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-block: 4px;
+}
+
+.divider-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(180deg, transparent, var(--color-border-strong), transparent);
+}
+
+.divider-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  background: var(--color-panel-raised);
+  border: 1px solid var(--color-border);
+  padding: 3px 6px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+}
+
+/* Flame Labels */
+.flame-label-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 10px;
+  gap: 2px;
+}
+
+.flame-title {
+  font: 700 11.5px/1 var(--f-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.flame-title-1g {
+  color: var(--color-flame);
+}
+
+.flame-title-0g {
+  color: var(--color-cyan);
+}
+
+.flame-desc {
+  font: 600 12px/1.3 var(--f-display);
+  color: var(--color-text);
   margin-top: 2px;
+}
+
+.flame-sub {
+  font-size: 10.5px;
+  color: var(--color-text-subtle);
+  font-family: var(--f-mono);
+}
+
+/* Conceptual Disclosure */
+.dual-disclosure {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  background: rgba(3, 8, 17, 0.55);
+  border-radius: 8px;
+  border: 1px dashed var(--color-border);
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--color-text-subtle);
+}
+
+.dual-disclosure .disc-icon {
+  font-size: 11px;
+  flex-shrink: 0;
 }
 
 /* ---------- SECTION 2: RESEARCH SNAPSHOT ---------- */
@@ -728,10 +851,12 @@
   .hero-visual {
     order: -1;
     justify-content: center;
+    width: 100%;
   }
 
-  .porthole {
-    width: min(100%, 280px);
+  .dual-flame-card {
+    max-width: 600px;
+    margin-inline: auto;
   }
 
   .snapshot-kpi-grid {
@@ -775,6 +900,24 @@
   }
 }
 
+@media (max-width: 480px) {
+  .dual-flame-stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .dual-divider {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .divider-line {
+    width: 44px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-border-strong), transparent);
+  }
+}
 
 /* ---------- EVIDENCE EXPLORER ---------- */
 .cov-legend {
