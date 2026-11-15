@@ -10,7 +10,7 @@ import { createRouter } from "./core/router.js";
 import { createSpace } from "./background/space.js";
 import { conditions, gravity, scenario, initScenario } from "./state.js";
 import { createControls } from "./ui/controls.js";
-import { mountOverview } from "./views/overview.js";
+import { mountPanorama } from "./views/panorama.js";
 import { mountExplorer } from "./views/explorer.js";
 import { mountExperiments } from "./views/experiments.js";
 import { mountSimulator } from "./views/simulator.js";
@@ -27,7 +27,7 @@ import { mountRag } from "./views/rag.js";
 import { mountParts, mountStack } from "./views/parts.js";
 
 const TABS = [
-  { id: "overview", label: "Overview" },
+  { id: "panorama", label: "Overview" },
   { id: "lab3d", label: "3D Laboratory" },
   { id: "data", label: "Evidence Explorer" },
   { id: "optimizer", label: "Design Optimizer" },
@@ -41,9 +41,9 @@ const TABS = [
 ];
 
 const ALIASES = {
-  panorama: "overview",
-  portada: "overview",
-  inicio: "overview",
+  overview: "panorama",
+  portada: "panorama",
+  inicio: "panorama",
   datos: "data",
   simulador: "simulator",
   asistente: "assistant",
@@ -87,7 +87,7 @@ async function boot() {
   let router;
   const go = (id, sub) => router.go(id, sub);
   const views = {
-    overview: mountOverview($("#view-overview") || $("#view-panorama"), data, { go }),
+    panorama: mountPanorama($("#view-panorama"), data, { go }),
     data: mountParts($("#view-data"), "data", [
       { id: "charts", label: "FLEX Charts", mount: (el) => mountExplorer(el, data, { open: (uid) => go("data", `runs/${uid}`) }) },
       { id: "runs", label: "Run by Run", mount: (el) => mountExperiments(el, data, { go, gravity }) },
@@ -106,8 +106,8 @@ async function boot() {
     contradiction: mountContradiction($("#view-contradiction"), data, { go }),
     pipeline: mountPipeline($("#view-pipeline")),
   };
-  router = createRouter({ tabs: TABS, views, initial: "overview", aliases: ALIASES });
-  $(".brand").addEventListener("click", (e) => { e.preventDefault(); go("overview"); });
+  router = createRouter({ tabs: TABS, views, initial: "panorama", aliases: ALIASES });
+  $(".brand").addEventListener("click", (e) => { e.preventDefault(); go("panorama"); });
 }
 
 boot().catch((err) => {
